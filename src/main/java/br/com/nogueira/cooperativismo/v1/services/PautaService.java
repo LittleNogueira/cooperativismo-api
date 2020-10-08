@@ -32,21 +32,5 @@ public class PautaService {
         return pauta.get();
     }
 
-    public Pauta criarSessao(Long idPauta, Sessao sessao){
-        Pauta pauta = buscaPautaPorId(idPauta);
-
-        if(Objects.nonNull(pauta.getSessao())){
-            throw new NotAcceptable("Esta pauta ja tem uma sessao.");
-        }
-
-        if(Objects.isNull(sessao.getDataHoraFinalizacao())){
-            sessao.setDataHoraFinalizacao(sessao.getDataHoraCriacao().plusMinutes(1));
-        }
-
-        pauta.setSessao(sessao);
-
-        return pautaRepository.save(pauta);
-    }
-
 }
 

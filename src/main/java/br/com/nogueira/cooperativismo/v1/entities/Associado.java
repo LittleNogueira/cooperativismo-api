@@ -1,5 +1,7 @@
 package br.com.nogueira.cooperativismo.v1.entities;
 
+import br.com.nogueira.cooperativismo.v1.enums.StatusEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,8 @@ public class Associado {
 
     @Column(nullable = false)
     private String cpf;
+
+    private StatusEnum status;
 
     public Long getId() {
         return id;
@@ -33,5 +37,13 @@ public class Associado {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
     }
 }

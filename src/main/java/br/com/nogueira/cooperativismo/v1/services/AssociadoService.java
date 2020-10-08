@@ -2,7 +2,7 @@ package br.com.nogueira.cooperativismo.v1.services;
 
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.v1.entities.Associado;
-import br.com.nogueira.cooperativismo.v1.entities.Pauta;
+import br.com.nogueira.cooperativismo.v1.enums.StatusEnum;
 import br.com.nogueira.cooperativismo.v1.repository.AssociadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,7 @@ public class AssociadoService {
     private AssociadoRepository associadoRepository;
 
     public Associado criarAssociado(Associado associado){
+        associado.setStatus(StatusEnum.ABLE_TO_VOTE);
         return associadoRepository.save(associado);
     }
 

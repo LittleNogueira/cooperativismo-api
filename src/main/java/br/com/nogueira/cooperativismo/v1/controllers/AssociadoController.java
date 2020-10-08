@@ -1,5 +1,6 @@
 package br.com.nogueira.cooperativismo.v1.controllers;
 
+import br.com.nogueira.cooperativismo.v1.business.AssociadoBusiness;
 import br.com.nogueira.cooperativismo.v1.entities.Associado;
 import br.com.nogueira.cooperativismo.v1.entities.Pauta;
 import br.com.nogueira.cooperativismo.v1.forms.AssociadoForm;
@@ -20,18 +21,18 @@ import java.net.URI;
 public class AssociadoController {
 
     @Autowired
-    private AssociadoService associadoService;
+    private AssociadoBusiness associadoBusiness;
 
     @PostMapping
-    public ResponseEntity<Associado> criarPauta(@Valid @RequestBody AssociadoForm pautaForm, UriComponentsBuilder uriComponentsBuilder){
-        Associado associado = associadoService.criarAssociado(AssociadoMapper.INSTANCE.fomularioParaEntidade(pautaForm));
+    public ResponseEntity<Associado> criarPauta(@Valid @RequestBody AssociadoForm associadoForm, UriComponentsBuilder uriComponentsBuilder){
+        Associado associado = associadoBusiness.criarAssociado(associadoForm);
         URI uri = uriComponentsBuilder.path("/v1/associados/{id}").buildAndExpand(associado.getId()).toUri();
         return ResponseEntity.created(uri).body(associado);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Associado> buscaAssociadoPorId(@PathVariable Long id){
-        return ResponseEntity.ok(associadoService.buscaAssociadoPorId(id));
+        return ResponseEntity.ok(associadoBusiness.buscarAssociadoPorId(id));
     }
 
 }

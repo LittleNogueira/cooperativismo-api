@@ -1,10 +1,8 @@
 package br.com.nogueira.cooperativismo.v1.entities;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 public class Sessao {
@@ -12,6 +10,9 @@ public class Sessao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany
+    List<Voto> votos;
 
     @Column(nullable = false)
     private LocalDateTime dataHoraCriacao = LocalDateTime.now();
