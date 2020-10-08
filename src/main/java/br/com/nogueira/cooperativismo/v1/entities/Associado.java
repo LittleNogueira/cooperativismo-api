@@ -46,4 +46,8 @@ public class Associado {
     public void setStatus(StatusEnum status) {
         this.status = status;
     }
+
+    public Boolean isAptoParaVotar(){
+        return status.equals(StatusEnum.ABLE_TO_VOTE);
+    }
 }

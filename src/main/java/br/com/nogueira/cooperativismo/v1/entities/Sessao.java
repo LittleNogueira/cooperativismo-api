@@ -2,7 +2,9 @@ package br.com.nogueira.cooperativismo.v1.entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Sessao {
@@ -11,8 +13,8 @@ public class Sessao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    List<Voto> votos;
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Voto> votos = new ArrayList<>();
 
     @Column(nullable = false)
     private LocalDateTime dataHoraCriacao = LocalDateTime.now();
@@ -22,6 +24,14 @@ public class Sessao {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Voto> getVotos() {
+        return votos;
+    }
+
+    public void setVotos(List<Voto> votos) {
+        this.votos = votos;
     }
 
     public LocalDateTime getDataHoraCriacao() {

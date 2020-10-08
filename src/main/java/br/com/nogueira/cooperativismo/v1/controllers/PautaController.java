@@ -2,6 +2,7 @@ package br.com.nogueira.cooperativismo.v1.controllers;
 
 import br.com.nogueira.cooperativismo.v1.business.PautaBusiness;
 import br.com.nogueira.cooperativismo.v1.entities.Pauta;
+import br.com.nogueira.cooperativismo.v1.entities.Voto;
 import br.com.nogueira.cooperativismo.v1.forms.PautaForm;
 import br.com.nogueira.cooperativismo.v1.forms.SessaoForm;
 import br.com.nogueira.cooperativismo.v1.forms.VotoForm;
@@ -39,6 +40,11 @@ public class PautaController {
     @PostMapping(path = "/{id}/sessoes")
     public ResponseEntity<Pauta> criarSessao(@PathVariable Long id, @Valid @RequestBody SessaoForm sessaoForm){
         return ResponseEntity.ok(pautaBusiness.criarSessao(id,sessaoForm));
+    }
+
+    @PostMapping(path = "/{id}/votos")
+    public ResponseEntity<Voto> criarVoto(@PathVariable Long id, @Valid @RequestBody VotoForm votoForm){
+        return ResponseEntity.ok(pautaBusiness.criarVoto(id,votoForm));
     }
 
 }

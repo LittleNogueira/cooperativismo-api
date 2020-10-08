@@ -18,7 +18,7 @@ public class PautaService {
     @Autowired
     private PautaRepository pautaRepository;
 
-    public Pauta criarPauta(Pauta pauta){
+    public Pauta salvarPauta(Pauta pauta){
         return pautaRepository.save(pauta);
     }
 
@@ -30,6 +30,10 @@ public class PautaService {
         }
 
         return pauta.get();
+    }
+
+    public Boolean existePautaComVotoDoAssociado(Long idPauta, Long idAssociado){
+        return pautaRepository.existsByIdAndSessaoVotosAssociadoId(idPauta, idAssociado);
     }
 
 }
