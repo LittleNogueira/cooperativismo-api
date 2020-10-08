@@ -1,15 +1,12 @@
 package br.com.nogueira.cooperativismo.v1.services;
 
-import br.com.nogueira.cooperativismo.exceptions.NotAcceptable;
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.v1.entities.Pauta;
-import br.com.nogueira.cooperativismo.v1.entities.Sessao;
 import br.com.nogueira.cooperativismo.v1.repository.PautaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service

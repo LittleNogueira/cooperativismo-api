@@ -1,10 +1,11 @@
 package br.com.nogueira.cooperativismo.v1.business;
 
+import static com.cronutils.model.field.expression.FieldExpressionFactory.on;
+
 import br.com.nogueira.cooperativismo.clients.UserClient;
 import br.com.nogueira.cooperativismo.dtos.UserDto;
 import br.com.nogueira.cooperativismo.enums.StatusEnum;
 import br.com.nogueira.cooperativismo.exceptions.NotAcceptable;
-import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.v1.entities.Associado;
 import br.com.nogueira.cooperativismo.v1.entities.Pauta;
 import br.com.nogueira.cooperativismo.v1.entities.Sessao;
@@ -12,8 +13,10 @@ import br.com.nogueira.cooperativismo.v1.entities.Voto;
 import br.com.nogueira.cooperativismo.v1.forms.PautaForm;
 import br.com.nogueira.cooperativismo.v1.forms.SessaoForm;
 import br.com.nogueira.cooperativismo.v1.forms.VotoForm;
+import br.com.nogueira.cooperativismo.v1.jobs.ResultadoJob;
 import br.com.nogueira.cooperativismo.v1.mappers.PautaMapper;
 import br.com.nogueira.cooperativismo.v1.mappers.SessaoMapper;
+import br.com.nogueira.cooperativismo.v1.services.AgendadorService;
 import br.com.nogueira.cooperativismo.v1.services.AssociadoService;
 import br.com.nogueira.cooperativismo.v1.services.PautaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+
 
 @Component
 public class PautaBusiness {
@@ -30,6 +34,9 @@ public class PautaBusiness {
 
     @Autowired
     private AssociadoService associadoService;
+
+    @Autowired
+    private AgendadorService agendadorService;
 
     @Autowired
     private UserClient userClient;
@@ -53,7 +60,11 @@ public class PautaBusiness {
 
         pauta.setSessao(sessao);
 
-        return pautaService.salvarPauta(pauta);
+        pauta = pautaService.salvarPauta(pauta);
+
+        agendadorService.agendarJob(pauta.getSessao().getDataHoraFinalizacao().plusSeconds(1),ResultadoJob.class);
+
+        return pauta;
     }
 
     public Voto criarVoto(Long idPauta, VotoForm votoForm){

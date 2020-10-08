@@ -31,4 +31,5 @@ public class VotoForm {
     public LocalDateTime getDataHoraVotacao() {
         return dataHoraVotacao;
     }
+
 }

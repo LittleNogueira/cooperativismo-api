@@ -33,4 +33,5 @@ public class WebRestControllerAdvice {
     public Erro handler(NotAcceptable e){
         return new Erro(e.getMessage());
     }
+
 }
