@@ -80,7 +80,7 @@ public class PautaBusiness {
             throw new NotAcceptable("Esta pauta nao tem uma sessao aberta.");
         }
 
-        if(dataHoraVotacao.isAfter(pauta.getSessao().getDataHoraCriacao())){
+        if(dataHoraVotacao.isAfter(pauta.getSessao().getDataHoraFinalizacao())){
             throw new NotAcceptable("A sessao desta pauta ja foi fechada.");
         }
     }
@@ -92,7 +92,7 @@ public class PautaBusiness {
 
         UserDto userDto = userClient.buscarUsuarioPorCpf(associado.getCpf());
 
-        if(userDto.getStatusEnum().equals(StatusEnum.UNABLE_TO_VOTE)){
+        if(userDto.getStatus().equals(StatusEnum.UNABLE_TO_VOTE)){
             throw new NotAcceptable("O associado nao esta apto para votar.");
         }
     }

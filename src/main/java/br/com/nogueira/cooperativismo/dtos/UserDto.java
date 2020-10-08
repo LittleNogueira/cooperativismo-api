@@ -4,13 +4,13 @@ import br.com.nogueira.cooperativismo.enums.StatusEnum;
 
 public class UserDto {
 
-    private StatusEnum statusEnum;
+    private StatusEnum status;
 
-    public StatusEnum getStatusEnum() {
-        return statusEnum;
+    public StatusEnum getStatus() {
+        return status;
     }
 
-    public void setStatusEnum(StatusEnum statusEnum) {
-        this.statusEnum = statusEnum;
+    public void setStatus(StatusEnum status) {
+        this.status = status;
     }
 }
