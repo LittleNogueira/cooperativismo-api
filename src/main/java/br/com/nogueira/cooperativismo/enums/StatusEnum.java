@@ -1,4 +1,4 @@
-package br.com.nogueira.cooperativismo.v1.enums;
+package br.com.nogueira.cooperativismo.enums;
 
 public enum StatusEnum {
     ABLE_TO_VOTE,

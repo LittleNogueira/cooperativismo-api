@@ -1,6 +1,8 @@
 package br.com.nogueira.cooperativismo.v1.forms;
 
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,7 +14,7 @@ public class AssociadoForm {
     private String nome;
 
     @NotNull
-    @Size(min = 11, max = 11)
+    @CPF
     private String cpf;
 
     public String getNome() {

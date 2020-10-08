@@ -1,5 +1,8 @@
 package br.com.nogueira.cooperativismo.v1.business;
 
+import br.com.nogueira.cooperativismo.clients.UserClient;
+import br.com.nogueira.cooperativismo.dtos.UserDto;
+import br.com.nogueira.cooperativismo.enums.StatusEnum;
 import br.com.nogueira.cooperativismo.exceptions.NotAcceptable;
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.v1.entities.Associado;
@@ -16,6 +19,7 @@ import br.com.nogueira.cooperativismo.v1.services.PautaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Component
@@ -26,6 +30,9 @@ public class PautaBusiness {
 
     @Autowired
     private AssociadoService associadoService;
+
+    @Autowired
+    private UserClient userClient;
 
     public Pauta criarPauta(PautaForm pautaForm){
         Pauta pauta = PautaMapper.INSTANCE.fomularioParaEntidade(pautaForm);
@@ -51,12 +58,12 @@ public class PautaBusiness {
 
     public Voto criarVoto(Long idPauta, VotoForm votoForm){
         Pauta pauta = pautaService.buscaPautaPorId(idPauta);
-        validaSePautaEstaAptaParaVotacao(pauta);
+        validaSePautaEstaAptaParaVotacao(pauta,votoForm.getDataHoraVotacao());
 
         Associado associado = associadoService.buscaAssociadoPorId(votoForm.getIdAssociado());
         validaSeAssociadoEstaAptoParaVotarNaPauta(associado, pauta);
 
-        Voto voto = new Voto(votoForm.getVoto(), associado);
+        Voto voto = new Voto(votoForm.getVoto(), associado, votoForm.getDataHoraVotacao());
         pauta.getSessao().getVotos().add(voto);
 
         pautaService.salvarPauta(pauta);
@@ -68,9 +75,13 @@ public class PautaBusiness {
         return pautaService.buscaPautaPorId(id);
     }
 
-    private void validaSePautaEstaAptaParaVotacao(Pauta pauta){
+    private void validaSePautaEstaAptaParaVotacao(Pauta pauta, LocalDateTime dataHoraVotacao){
         if(Objects.isNull(pauta.getSessao())){
             throw new NotAcceptable("Esta pauta nao tem uma sessao aberta.");
+        }
+
+        if(dataHoraVotacao.isAfter(pauta.getSessao().getDataHoraCriacao())){
+            throw new NotAcceptable("A sessao desta pauta ja foi fechada.");
         }
     }
 
@@ -79,7 +90,9 @@ public class PautaBusiness {
             throw new NotAcceptable("Um mesmo associado nao pode votar duas vezes.");
         }
 
-        if(!associado.isAptoParaVotar()){
+        UserDto userDto = userClient.buscarUsuarioPorCpf(associado.getCpf());
+
+        if(userDto.getStatusEnum().equals(StatusEnum.UNABLE_TO_VOTE)){
             throw new NotAcceptable("O associado nao esta apto para votar.");
         }
     }

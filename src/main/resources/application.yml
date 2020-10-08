@@ -2,6 +2,10 @@ server:
     servlet:
         contextPath: /api
 
+client:
+    user:
+        url: https://user-info.herokuapp.com/users
+
 spring:
     datasource:
         username: root

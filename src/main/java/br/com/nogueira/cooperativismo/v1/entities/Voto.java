@@ -1,7 +1,6 @@
 package br.com.nogueira.cooperativismo.v1.entities;
 
-import br.com.nogueira.cooperativismo.v1.enums.VotoEnum;
-import org.hibernate.annotations.CreationTimestamp;
+import br.com.nogueira.cooperativismo.enums.VotoEnum;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,14 +17,15 @@ public class Voto {
     @OneToOne
     private Associado associado;
 
-    @CreationTimestamp
+    @Column(nullable = false)
     private LocalDateTime dataHoraVotacao;
 
     public Voto(){}
 
-    public Voto(VotoEnum voto, Associado associado){
+    public Voto(VotoEnum voto, Associado associado, LocalDateTime dataHoraVotacao){
         this.setVoto(voto);
         this.setAssociado(associado);
+        this.setDataHoraVotacao(dataHoraVotacao);
     }
 
     public Long getId() {
