@@ -23,6 +23,9 @@ public class Pauta {
     @OneToOne(cascade = CascadeType.ALL)
     private Sessao sessao;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Resultado resultado;
+
     @CreationTimestamp
     private LocalDateTime dataHoraCriacao;
 
@@ -57,10 +60,17 @@ public class Pauta {
         this.sessao = sessao;
     }
 
+    public Resultado getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(Resultado resultado) {
+        this.resultado = resultado;
+    }
+
     public LocalDateTime getDataHoraCriacao() {
         return dataHoraCriacao;
     }
-
 
     public LocalDateTime getDataHoraAtualizacao() {
         return dataHoraAtualizacao;
