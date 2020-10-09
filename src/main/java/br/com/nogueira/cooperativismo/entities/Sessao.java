@@ -1,5 +1,8 @@
 package br.com.nogueira.cooperativismo.entities;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -7,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Sessao {
 
     @Id

@@ -1,7 +1,8 @@
 package br.com.nogueira.cooperativismo.entities;
 
 import br.com.nogueira.cooperativismo.enums.ResultadoEnum;
-import br.com.nogueira.cooperativismo.enums.VotoEnum;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Resultado {
 
     @Id

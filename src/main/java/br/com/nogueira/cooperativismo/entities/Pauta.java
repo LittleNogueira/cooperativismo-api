@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Pauta {
     
     @Id
