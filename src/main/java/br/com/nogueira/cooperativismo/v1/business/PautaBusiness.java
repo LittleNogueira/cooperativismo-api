@@ -1,7 +1,5 @@
 package br.com.nogueira.cooperativismo.v1.business;
 
-import static com.cronutils.model.field.expression.FieldExpressionFactory.on;
-
 import br.com.nogueira.cooperativismo.clients.UserClient;
 import br.com.nogueira.cooperativismo.dtos.UserDto;
 import br.com.nogueira.cooperativismo.enums.StatusEnum;
@@ -13,7 +11,6 @@ import br.com.nogueira.cooperativismo.entities.Voto;
 import br.com.nogueira.cooperativismo.v1.forms.PautaForm;
 import br.com.nogueira.cooperativismo.v1.forms.SessaoForm;
 import br.com.nogueira.cooperativismo.v1.forms.VotoForm;
-import br.com.nogueira.cooperativismo.jobs.ResultadoJob;
 import br.com.nogueira.cooperativismo.v1.mappers.PautaMapper;
 import br.com.nogueira.cooperativismo.v1.mappers.SessaoMapper;
 import br.com.nogueira.cooperativismo.services.AgendadorService;
@@ -34,9 +31,6 @@ public class PautaBusiness {
 
     @Autowired
     private AssociadoService associadoService;
-
-    @Autowired
-    private AgendadorService agendadorService;
 
     @Autowired
     private UserClient userClient;
@@ -61,8 +55,6 @@ public class PautaBusiness {
         pauta.setSessao(sessao);
 
         pauta = pautaService.salvarPauta(pauta);
-
-        agendadorService.agendarJob(pauta.getSessao().getDataHoraFinalizacao().plusSeconds(1),ResultadoJob.class);
 
         return pauta;
     }

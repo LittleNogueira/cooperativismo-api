@@ -1,5 +1,6 @@
 package br.com.nogueira.cooperativismo.entities;
 
+import br.com.nogueira.cooperativismo.enums.ResultadoEnum;
 import br.com.nogueira.cooperativismo.enums.VotoEnum;
 
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ public class Resultado {
 
     private int votosNao;
 
-    private VotoEnum resultado;
+    private ResultadoEnum resultado;
 
     public Long getId() {
         return id;
@@ -40,11 +41,11 @@ public class Resultado {
         this.votosNao = votosNao;
     }
 
-    public VotoEnum getResultado() {
+    public ResultadoEnum getResultado() {
         return resultado;
     }
 
-    public void setResultado(VotoEnum resultado) {
+    public void setResultado(ResultadoEnum resultado) {
         this.resultado = resultado;
     }
 }

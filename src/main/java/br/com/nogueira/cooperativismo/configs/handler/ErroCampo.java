@@ -1,4 +1,4 @@
-package br.com.nogueira.cooperativismo.configs.handlers;
+package br.com.nogueira.cooperativismo.configs.handler;
 
 import org.springframework.validation.FieldError;
 

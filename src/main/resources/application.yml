@@ -8,9 +8,29 @@ client:
 
 spring:
     datasource:
-        username: root
-        password: root
-        url: jdbc:mysql://localhost:3306/banco
+        driver-class-name: org.postgresql.Driver
+        password: postgres
+        url: jdbc:postgresql://localhost:5432/banco
+        username: postgres
     jpa:
+        database-platform: org.hibernate.dialect.PostgreSQL9Dialect
         hibernate:
             ddl-auto: update
+    kafka:
+        consumer:
+            auto-offset-reset: earliest
+            bootstrap-servers: http://localhost:9092
+            group-id: group-id
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            properties:
+                spring:
+                    json:
+                        add:
+                            type:
+                                headers: false
+                        trusted:
+                            packages: br.com.nogueira.cooperativismo.dtos
+            value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+        producer:
+            bootstrap-servers: localhost:9092
+            value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

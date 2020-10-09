@@ -1,4 +1,4 @@
-package br.com.nogueira.cooperativismo.configs.handlers;
+package br.com.nogueira.cooperativismo.configs.handler;
 
 public class Erro {
     public String mensagem;
