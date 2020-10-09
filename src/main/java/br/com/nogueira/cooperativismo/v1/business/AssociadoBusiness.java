@@ -1,11 +1,9 @@
 package br.com.nogueira.cooperativismo.v1.business;
 
-import br.com.nogueira.cooperativismo.clients.UserClient;
-import br.com.nogueira.cooperativismo.dtos.UserDto;
-import br.com.nogueira.cooperativismo.v1.entities.Associado;
+import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.v1.forms.AssociadoForm;
 import br.com.nogueira.cooperativismo.v1.mappers.AssociadoMapper;
-import br.com.nogueira.cooperativismo.v1.services.AssociadoService;
+import br.com.nogueira.cooperativismo.services.AssociadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

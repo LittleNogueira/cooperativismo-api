@@ -1,4 +1,4 @@
-package br.com.nogueira.cooperativismo.v1.jobs;
+package br.com.nogueira.cooperativismo.jobs;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

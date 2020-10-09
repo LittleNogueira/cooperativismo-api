@@ -1,6 +1,6 @@
 package br.com.nogueira.cooperativismo.v1.mappers;
 
-import br.com.nogueira.cooperativismo.v1.entities.Associado;
+import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.v1.forms.AssociadoForm;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

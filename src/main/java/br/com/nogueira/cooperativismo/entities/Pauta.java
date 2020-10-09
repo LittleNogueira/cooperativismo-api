@@ -1,4 +1,4 @@
-package br.com.nogueira.cooperativismo.v1.entities;
+package br.com.nogueira.cooperativismo.entities;
 
 import java.time.LocalDateTime;
 
@@ -61,15 +61,9 @@ public class Pauta {
         return dataHoraCriacao;
     }
 
-    public void setDataHoraCriacao(LocalDateTime dataHoraCriacao) {
-        this.dataHoraCriacao = dataHoraCriacao;
-    }
 
     public LocalDateTime getDataHoraAtualizacao() {
         return dataHoraAtualizacao;
     }
 
-    public void setDataHoraAtualizacao(LocalDateTime dataHoraAtualizacao) {
-        this.dataHoraAtualizacao = dataHoraAtualizacao;
-    }
 }

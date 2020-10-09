@@ -1,9 +1,8 @@
-package br.com.nogueira.cooperativismo.v1.services;
+package br.com.nogueira.cooperativismo.services;
 
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
-import br.com.nogueira.cooperativismo.v1.entities.Associado;
-import br.com.nogueira.cooperativismo.enums.StatusEnum;
-import br.com.nogueira.cooperativismo.v1.repository.AssociadoRepository;
+import br.com.nogueira.cooperativismo.entities.Associado;
+import br.com.nogueira.cooperativismo.repository.AssociadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

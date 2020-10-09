@@ -1,6 +1,6 @@
-package br.com.nogueira.cooperativismo.v1.repository;
+package br.com.nogueira.cooperativismo.repository;
 
-import br.com.nogueira.cooperativismo.v1.entities.Pauta;
+import br.com.nogueira.cooperativismo.entities.Pauta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

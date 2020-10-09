@@ -1,4 +1,4 @@
-package br.com.nogueira.cooperativismo.v1.entities;
+package br.com.nogueira.cooperativismo.entities;
 
 import br.com.nogueira.cooperativismo.enums.VotoEnum;
 

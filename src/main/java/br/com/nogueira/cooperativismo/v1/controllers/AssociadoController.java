@@ -1,13 +1,8 @@
 package br.com.nogueira.cooperativismo.v1.controllers;
 
 import br.com.nogueira.cooperativismo.v1.business.AssociadoBusiness;
-import br.com.nogueira.cooperativismo.v1.entities.Associado;
-import br.com.nogueira.cooperativismo.v1.entities.Pauta;
+import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.v1.forms.AssociadoForm;
-import br.com.nogueira.cooperativismo.v1.forms.PautaForm;
-import br.com.nogueira.cooperativismo.v1.mappers.AssociadoMapper;
-import br.com.nogueira.cooperativismo.v1.mappers.PautaMapper;
-import br.com.nogueira.cooperativismo.v1.services.AssociadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

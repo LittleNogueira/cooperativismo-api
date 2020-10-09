@@ -1,4 +1,4 @@
-package br.com.nogueira.cooperativismo.v1.entities;
+package br.com.nogueira.cooperativismo.entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,16 +30,8 @@ public class Sessao {
         return votos;
     }
 
-    public void setVotos(List<Voto> votos) {
-        this.votos = votos;
-    }
-
     public LocalDateTime getDataHoraCriacao() {
         return dataHoraCriacao;
-    }
-
-    public void setDataHoraCriacao(LocalDateTime dataHoraCriacao) {
-        this.dataHoraCriacao = dataHoraCriacao;
     }
 
     public LocalDateTime getDataHoraFinalizacao() {
@@ -49,5 +41,13 @@ public class Sessao {
     public void setDataHoraFinalizacao(LocalDateTime dataHoraFinalizacao) {
         this.dataHoraFinalizacao = dataHoraFinalizacao;
     }
+
+    @PrePersist
+    public void prePersist(){
+        if(Objects.isNull(dataHoraFinalizacao)){
+            this.dataHoraFinalizacao = dataHoraCriacao.plusMinutes(1);
+        }
+    }
+
 }
 

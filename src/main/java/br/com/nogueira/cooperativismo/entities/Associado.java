@@ -1,6 +1,4 @@
-package br.com.nogueira.cooperativismo.v1.entities;
-
-import br.com.nogueira.cooperativismo.enums.StatusEnum;
+package br.com.nogueira.cooperativismo.entities;
 
 import javax.persistence.*;
 

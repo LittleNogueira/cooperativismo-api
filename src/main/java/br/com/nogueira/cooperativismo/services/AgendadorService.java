@@ -1,6 +1,5 @@
-package br.com.nogueira.cooperativismo.v1.services;
+package br.com.nogueira.cooperativismo.services;
 
-import br.com.nogueira.cooperativismo.v1.jobs.ResultadoJob;
 import com.cronutils.builder.CronBuilder;
 import com.cronutils.model.Cron;
 import com.cronutils.model.CronType;
