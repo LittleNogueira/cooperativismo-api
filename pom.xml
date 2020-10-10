@@ -16,7 +16,11 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<org.mapstruct.version>1.4.0.Final</org.mapstruct.version>
+		<mapstruct.version>1.4.0.Final</mapstruct.version>
+		<jackson.version>2.10.0</jackson.version>
+		<feign.version>2.2.5.RELEASE</feign.version>
+		<springfox.version>2.9.2</springfox.version>
+		<swaggerui.version>2.9.2</swaggerui.version>
 	</properties>
 
 	<dependencies>
@@ -49,31 +53,31 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.10.0</version>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
-			<version>${org.mapstruct.version}</version>
+			<version>${mapstruct.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
-			<version>2.2.5.RELEASE</version>
+			<version>${feign.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
+			<version>${springfox.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
+			<version>${swaggerui.version}</version>
 		</dependency>
 
 		<dependency>
@@ -107,7 +111,7 @@
 						<path>
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
-							<version>${org.mapstruct.version}</version>
+							<version>${mapstruct.version}</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
