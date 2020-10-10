@@ -79,4 +79,16 @@ public class Pauta {
         return dataHoraAtualizacao;
     }
 
+    @Override
+    public String toString() {
+        return "Pauta{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", sessao=" + sessao +
+                ", resultado=" + resultado +
+                ", dataHoraCriacao=" + dataHoraCriacao +
+                ", dataHoraAtualizacao=" + dataHoraAtualizacao +
+                '}';
+    }
 }

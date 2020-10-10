@@ -42,4 +42,14 @@ public class ResultadoDto {
     public ResultadoEnum getResultado() {
         return resultado;
     }
+
+    @Override
+    public String toString() {
+        return "ResultadoDto{" +
+                "idPauta=" + idPauta +
+                ", votosSim=" + votosSim +
+                ", votosNao=" + votosNao +
+                ", resultado=" + resultado +
+                '}';
+    }
 }

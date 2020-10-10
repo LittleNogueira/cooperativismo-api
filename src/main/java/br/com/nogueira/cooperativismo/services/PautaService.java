@@ -1,5 +1,6 @@
 package br.com.nogueira.cooperativismo.services;
 
+import br.com.nogueira.cooperativismo.CooperativismoApplication;
 import br.com.nogueira.cooperativismo.entities.Resultado;
 import br.com.nogueira.cooperativismo.entities.Voto;
 import br.com.nogueira.cooperativismo.enums.StatusEnum;
@@ -7,6 +8,8 @@ import br.com.nogueira.cooperativismo.enums.VotoEnum;
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.repository.PautaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +24,31 @@ public class PautaService {
     @Autowired
     private PautaRepository pautaRepository;
 
+    private static Logger Logger = LoggerFactory.getLogger(PautaService.class);
+
     public Pauta salvarPauta(Pauta pauta){
-        return pautaRepository.save(pauta);
+        Logger.info("Entidade recebida na camanda de serviço {}", pauta);
+
+        pauta = pautaRepository.save(pauta);
+
+        Logger.info("Entidade persistida com sucesso {}", pauta);
+
+        return pauta;
     }
 
     public Pauta buscaPautaPorId(Long id){
+        Logger.info("Id {} recebido na camanda de serviço para realizar busca", id);
+
         Optional<Pauta> pauta = pautaRepository.findById(id);
 
+        Logger.info("Busca realizada com sucesso {}", pauta);
+
         if(pauta.isEmpty()){
-            throw new NotFoundException(MessageFormat.format("Pauta com id {0} nao existe.",id));
+            Logger.info("Não existe pauta com id {}", id);
+            throw new NotFoundException(MessageFormat.format("Pauta com id {0} não existe.",id));
         }
 
+        Logger.info("Pauta encontrada com sucesso {}", pauta.get());
         return pauta.get();
     }
 

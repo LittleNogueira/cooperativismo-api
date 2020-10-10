@@ -58,4 +58,14 @@ public class Voto {
     public void setDataHoraVotacao(LocalDateTime dataHoraVotacao) {
         this.dataHoraVotacao = dataHoraVotacao;
     }
+
+    @Override
+    public String toString() {
+        return "Voto{" +
+                "id=" + id +
+                ", voto=" + voto +
+                ", associado=" + associado +
+                ", dataHoraVotacao=" + dataHoraVotacao +
+                '}';
+    }
 }

@@ -50,4 +50,14 @@ public class Resultado {
     public void setResultado(ResultadoEnum resultado) {
         this.resultado = resultado;
     }
+
+    @Override
+    public String toString() {
+        return "Resultado{" +
+                "id=" + id +
+                ", votosSim=" + votosSim +
+                ", votosNao=" + votosNao +
+                ", resultado=" + resultado +
+                '}';
+    }
 }

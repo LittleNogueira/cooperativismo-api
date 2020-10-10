@@ -53,5 +53,14 @@ public class Sessao {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Sessao{" +
+                "id=" + id +
+                ", votos=" + votos +
+                ", dataHoraCriacao=" + dataHoraCriacao +
+                ", dataHoraFinalizacao=" + dataHoraFinalizacao +
+                '}';
+    }
 }
 

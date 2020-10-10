@@ -39,4 +39,12 @@ public class Associado {
         this.cpf = cpf;
     }
 
+    @Override
+    public String toString() {
+        return "Associado{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                '}';
+    }
 }

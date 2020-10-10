@@ -32,4 +32,6 @@ public class AssociadoForm {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+
 }

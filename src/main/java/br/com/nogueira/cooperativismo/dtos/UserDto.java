@@ -13,4 +13,11 @@ public class UserDto {
     public void setStatus(StatusEnum status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "status=" + status +
+                '}';
+    }
 }

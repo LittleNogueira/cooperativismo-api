@@ -35,4 +35,12 @@ public class VotoForm {
         return dataHoraVotacao;
     }
 
+    @Override
+    public String toString() {
+        return "VotoForm{" +
+                "idAssociado=" + idAssociado +
+                ", voto=" + voto +
+                ", dataHoraVotacao=" + dataHoraVotacao +
+                '}';
+    }
 }

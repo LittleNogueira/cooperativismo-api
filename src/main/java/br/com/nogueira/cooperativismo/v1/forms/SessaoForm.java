@@ -15,4 +15,11 @@ public class SessaoForm {
     public void setDataHoraFinalizacao(LocalDateTime dataHoraFinalizacao) {
         this.dataHoraFinalizacao = dataHoraFinalizacao;
     }
+
+    @Override
+    public String toString() {
+        return "SessaoForm{" +
+                "dataHoraFinalizacao=" + dataHoraFinalizacao +
+                '}';
+    }
 }

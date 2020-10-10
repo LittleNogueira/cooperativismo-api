@@ -8,6 +8,7 @@ import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.entities.Sessao;
 import br.com.nogueira.cooperativismo.entities.Voto;
+import br.com.nogueira.cooperativismo.v1.controllers.PautaController;
 import br.com.nogueira.cooperativismo.v1.forms.PautaForm;
 import br.com.nogueira.cooperativismo.v1.forms.SessaoForm;
 import br.com.nogueira.cooperativismo.v1.forms.VotoForm;
@@ -15,6 +16,8 @@ import br.com.nogueira.cooperativismo.v1.mappers.PautaMapper;
 import br.com.nogueira.cooperativismo.v1.mappers.SessaoMapper;
 import br.com.nogueira.cooperativismo.services.AssociadoService;
 import br.com.nogueira.cooperativismo.services.PautaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,24 +37,47 @@ public class PautaBusiness {
     @Autowired
     private UserClient userClient;
 
+    private static Logger Logger = LoggerFactory.getLogger(PautaBusiness.class);
+
     public Pauta criarPauta(PautaForm pautaForm){
+        Logger.info("Formulario recebido na camanda de negócio {}", pautaForm);
+
+        Logger.info("Inicia mapeamento do formulario para entidade {}",pautaForm);
+
         Pauta pauta = PautaMapper.INSTANCE.fomularioParaEntidade(pautaForm);
+
+        Logger.info("Mapeamento realizado com sucesso {}",pauta);
+
         return pautaService.salvarPauta(pauta);
     }
 
     public Pauta criarSessao(Long idPauta, SessaoForm sessaoForm){
+        Logger.info("Formulario recebido na camanda de negócio {}", sessaoForm);
+
         Pauta pauta = pautaService.buscaPautaPorId(idPauta);
+
+        Logger.info("Inicia mapeamento do formulario para entidade {}", sessaoForm);
+
         Sessao sessao = SessaoMapper.INSTANCE.fomularioParaEntidade(sessaoForm);
 
+        Logger.info("Mapeamento realizado com sucesso {}", sessao);
+
         if(Objects.nonNull(pauta.getSessao())){
-            throw new NotAcceptable("Esta pauta ja tem uma sessao.");
+            Logger.info("Está já possui uma sessão {}",pauta);
+            throw new NotAcceptable("Esta pauta ja tem uma sessão.");
         }
 
         if(Objects.isNull(sessao.getDataHoraFinalizacao())){
+            LocalDateTime dataHora = sessao.getDataHoraCriacao().plusMinutes(1);
+
+            Logger.info("Adiciona data e hora padrão para finalização da sessão {}",dataHora);
+
             sessao.setDataHoraFinalizacao(sessao.getDataHoraCriacao().plusMinutes(1));
         }
 
         pauta.setSessao(sessao);
+
+        Logger.info("Adiciona sessão para a pauta {}",pauta);
 
         pauta = pautaService.salvarPauta(pauta);
 
@@ -74,6 +100,8 @@ public class PautaBusiness {
     }
 
     public Pauta buscarPautaPorId(Long id){
+        Logger.info("Id {} recebido na camanda de negócio ", id);
+
         return pautaService.buscaPautaPorId(id);
     }
 
