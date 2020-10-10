@@ -85,6 +85,8 @@ public class PautaBusiness {
     }
 
     public Voto criarVoto(Long idPauta, VotoForm votoForm){
+        Logger.info("Formulario recebido na camanda de negócio {}", votoForm);
+
         Pauta pauta = pautaService.buscaPautaPorId(idPauta);
         validaSePautaEstaAptaParaVotacao(pauta,votoForm.getDataHoraVotacao());
 
@@ -106,13 +108,21 @@ public class PautaBusiness {
     }
 
     private void validaSePautaEstaAptaParaVotacao(Pauta pauta, LocalDateTime dataHoraVotacao){
+        Logger.info("Inicia a validação para verificar se a pauta pode receber votos {}", pauta);
+
         if(Objects.isNull(pauta.getSessao())){
-            throw new NotAcceptable("Esta pauta nao tem uma sessao aberta.");
+            Logger.info("Está pauta não tem uma sessão aberta {}", pauta);
+            throw new NotAcceptable("Está pauta não tem uma sessão aberta.");
         }
 
+        Logger.info("Pauta está com uma sessão aberta {}", pauta);
+
         if(dataHoraVotacao.isAfter(pauta.getSessao().getDataHoraFinalizacao())){
-            throw new NotAcceptable("A sessao desta pauta ja foi fechada.");
+            Logger.info("A sessão desta pauta já foi fechada {}", pauta);
+            throw new NotAcceptable("A sessão desta pauta já foi fechada.");
         }
+
+        Logger.info("Pauta está apta para receber votos {}", pauta);
     }
 
     private void validaSeAssociadoEstaAptoParaVotarNaPauta(Associado associado, Pauta pauta){

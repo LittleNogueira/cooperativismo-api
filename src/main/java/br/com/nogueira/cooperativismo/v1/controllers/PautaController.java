@@ -69,7 +69,12 @@ public class PautaController {
     @PostMapping(path = "/{id}/votos")
     @ApiOperation(value = "Cria um novo voto para uma pauta")
     public ResponseEntity<Voto> criarVoto(@PathVariable Long id, @Valid @RequestBody VotoForm votoForm, UriComponentsBuilder uriComponentsBuilder){
+        Logger.info("Requisição recebida para criar um voto {} para a pauta com id {}", votoForm, id);
+
         Voto voto = pautaBusiness.criarVoto(id,votoForm);
+
+        Logger.info("Requisição concluida com sucesso {}", voto);
+
         URI uri = uriComponentsBuilder.path("/v1/pautas/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).body(voto);
     }
