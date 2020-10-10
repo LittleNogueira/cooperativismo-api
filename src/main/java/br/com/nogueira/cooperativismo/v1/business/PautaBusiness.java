@@ -71,7 +71,7 @@ public class PautaBusiness {
 
         pautaService.salvarPauta(pauta);
 
-        return voto;
+        return pauta.getSessao().getVotos().get(pauta.getSessao().getVotos().size() -1);
     }
 
     public Pauta buscarPautaPorId(Long id){
