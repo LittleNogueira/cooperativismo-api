@@ -13,7 +13,6 @@ import br.com.nogueira.cooperativismo.v1.forms.SessaoForm;
 import br.com.nogueira.cooperativismo.v1.forms.VotoForm;
 import br.com.nogueira.cooperativismo.v1.mappers.PautaMapper;
 import br.com.nogueira.cooperativismo.v1.mappers.SessaoMapper;
-import br.com.nogueira.cooperativismo.services.AgendadorService;
 import br.com.nogueira.cooperativismo.services.AssociadoService;
 import br.com.nogueira.cooperativismo.services.PautaService;
 import org.springframework.beans.factory.annotation.Autowired;
