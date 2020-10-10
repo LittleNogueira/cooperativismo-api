@@ -3,6 +3,7 @@ package br.com.nogueira.cooperativismo.v1.controllers;
 import br.com.nogueira.cooperativismo.v1.business.AssociadoBusiness;
 import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.v1.forms.AssociadoForm;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class AssociadoController {
     private AssociadoBusiness associadoBusiness;
 
     @PostMapping
+    @ApiOperation(value = "Cria um novo associado")
     public ResponseEntity<Associado> criarPauta(@Valid @RequestBody AssociadoForm associadoForm, UriComponentsBuilder uriComponentsBuilder){
         Associado associado = associadoBusiness.criarAssociado(associadoForm);
         URI uri = uriComponentsBuilder.path("/v1/associados/{id}").buildAndExpand(associado.getId()).toUri();
@@ -26,6 +28,7 @@ public class AssociadoController {
     }
 
     @GetMapping(path = "/{id}")
+    @ApiOperation(value = "Busca um associado por id")
     public ResponseEntity<Associado> buscaAssociadoPorId(@PathVariable Long id){
         return ResponseEntity.ok(associadoBusiness.buscarAssociadoPorId(id));
     }
