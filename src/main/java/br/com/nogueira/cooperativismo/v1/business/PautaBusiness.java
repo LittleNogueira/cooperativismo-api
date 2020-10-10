@@ -63,8 +63,8 @@ public class PautaBusiness {
         Logger.info("Mapeamento realizado com sucesso {}", sessao);
 
         if(Objects.nonNull(pauta.getSessao())){
-            Logger.info("Está já possui uma sessão {}",pauta);
-            throw new NotAcceptable("Esta pauta ja tem uma sessão.");
+            Logger.info("Está pauta já possui uma sessão {}",pauta);
+            throw new NotAcceptable("Está pauta já possui uma sessão.");
         }
 
         if(Objects.isNull(sessao.getDataHoraFinalizacao())){

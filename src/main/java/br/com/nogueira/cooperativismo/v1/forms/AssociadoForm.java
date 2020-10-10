@@ -1,12 +1,14 @@
 package br.com.nogueira.cooperativismo.v1.forms;
 
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class AssociadoForm {
 
     @NotNull

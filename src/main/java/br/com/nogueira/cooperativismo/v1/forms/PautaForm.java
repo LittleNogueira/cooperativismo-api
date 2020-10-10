@@ -1,10 +1,12 @@
 package br.com.nogueira.cooperativismo.v1.forms;
 
-import javax.validation.constraints.Future;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class PautaForm {
 
     @NotNull
