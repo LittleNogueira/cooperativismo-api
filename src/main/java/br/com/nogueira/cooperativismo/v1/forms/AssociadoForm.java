@@ -35,5 +35,11 @@ public class AssociadoForm {
         this.cpf = cpf;
     }
 
-
+    @Override
+    public String toString() {
+        return "AssociadoForm{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                '}';
+    }
 }

@@ -123,7 +123,7 @@ public class PautaBusiness {
             throw new NotAcceptable("Está pauta não tem uma sessão aberta.");
         }
 
-        Logger.info("Pauta está com uma sessão aberta {}", pauta);
+        Logger.info("Existe uma sessão para está pauta {}", pauta);
 
         if(dataHoraVotacao.isAfter(pauta.getSessao().getDataHoraFinalizacao())){
             Logger.info("A sessão desta pauta já foi fechada {}", pauta);
