@@ -1,10 +1,5 @@
 package br.com.nogueira.cooperativismo.services;
 
-import br.com.nogueira.cooperativismo.CooperativismoApplication;
-import br.com.nogueira.cooperativismo.entities.Resultado;
-import br.com.nogueira.cooperativismo.entities.Voto;
-import br.com.nogueira.cooperativismo.enums.StatusEnum;
-import br.com.nogueira.cooperativismo.enums.VotoEnum;
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.repository.PautaRepository;
