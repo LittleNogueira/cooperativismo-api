@@ -29,7 +29,7 @@ public class AssociadoService {
         return associado;
     }
 
-    public Associado buscaAssociadoPorId(Long id){
+    public Associado buscarAssociadoPorId(Long id){
         Logger.info("Id {} recebido na camanda de serviço para realizar busca", id);
 
         Optional<Associado> associado = associadoRepository.findById(id);

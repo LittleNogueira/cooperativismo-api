@@ -32,12 +32,12 @@ public class AssociadoBusinessTest {
 
     @Test
     void testaBuscarAssociadoPorId(){
-        when(associadoService.buscaAssociadoPorId(anyLong())).thenReturn(new Associado());
+        when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(new Associado());
 
         Associado associado = associadoBusiness.buscarAssociadoPorId(1l);
 
         assertNotNull(associado);
-        verify(associadoService,times(1)).buscaAssociadoPorId(anyLong());
+        verify(associadoService,times(1)).buscarAssociadoPorId(anyLong());
     }
 
     private AssociadoForm getAssociadoForm(){

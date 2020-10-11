@@ -41,7 +41,7 @@ public class PautaServiceTest {
         when(pautaRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         NotFoundException exception = assertThrows(NotFoundException.class, () -> {
-            pautaService.buscaPautaPorId(1l);
+            pautaService.buscarPautaPorId(1l);
         });
 
         assertEquals("Pauta com id 1 não existe.", exception.getMessage());
@@ -51,7 +51,7 @@ public class PautaServiceTest {
     void testaBuscaPautaPorIdComSucesso() {
         when(pautaRepository.findById(1l)).thenReturn(Optional.of(new Pauta()));
 
-        Pauta pauta = pautaService.buscaPautaPorId(1l);
+        Pauta pauta = pautaService.buscarPautaPorId(1l);
 
         assertNotNull(pauta);
     }

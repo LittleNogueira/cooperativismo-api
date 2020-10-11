@@ -8,7 +8,6 @@ import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.entities.Sessao;
 import br.com.nogueira.cooperativismo.entities.Voto;
-import br.com.nogueira.cooperativismo.v1.controllers.PautaController;
 import br.com.nogueira.cooperativismo.v1.forms.PautaForm;
 import br.com.nogueira.cooperativismo.v1.forms.SessaoForm;
 import br.com.nogueira.cooperativismo.v1.forms.VotoForm;
@@ -55,7 +54,7 @@ public class PautaBusiness {
     public Pauta criarSessao(Long idPauta, SessaoForm sessaoForm){
         Logger.info("Formulario recebido na camanda de negócio {}", sessaoForm);
 
-        Pauta pauta = pautaService.buscaPautaPorId(idPauta);
+        Pauta pauta = pautaService.buscarPautaPorId(idPauta);
 
         Logger.info("Inicia mapeamento do formulario para entidade {}", sessaoForm);
 
@@ -80,7 +79,7 @@ public class PautaBusiness {
 
         Logger.info("Adiciona sessão para a pauta {}",pauta);
 
-        pauta = pautaService.salvarPauta(pauta);
+        pautaService.salvarPauta(pauta);
 
         return pauta;
     }
@@ -88,10 +87,10 @@ public class PautaBusiness {
     public Voto criarVoto(Long idPauta, VotoForm votoForm){
         Logger.info("Formulario recebido na camanda de negócio {}", votoForm);
 
-        Pauta pauta = pautaService.buscaPautaPorId(idPauta);
+        Pauta pauta = pautaService.buscarPautaPorId(idPauta);
         validaSePautaEstaAptaParaVotacao(pauta,votoForm.getDataHoraVotacao());
 
-        Associado associado = associadoService.buscaAssociadoPorId(votoForm.getIdAssociado());
+        Associado associado = associadoService.buscarAssociadoPorId(votoForm.getIdAssociado());
         validaSeAssociadoEstaAptoParaVotarNaPauta(associado, pauta);
 
         Logger.info("Inicia mapeamento do formulario {} e associado {} para entidade", votoForm, associado);
@@ -112,7 +111,7 @@ public class PautaBusiness {
     public Pauta buscarPautaPorId(Long id){
         Logger.info("Id {} recebido na camanda de negócio ", id);
 
-        return pautaService.buscaPautaPorId(id);
+        return pautaService.buscarPautaPorId(id);
     }
 
     private void validaSePautaEstaAptaParaVotacao(Pauta pauta, LocalDateTime dataHoraVotacao){

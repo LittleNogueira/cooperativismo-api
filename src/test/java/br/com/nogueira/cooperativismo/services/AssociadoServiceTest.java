@@ -37,7 +37,7 @@ public class AssociadoServiceTest {
         when(associadoRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         NotFoundException exception = assertThrows(NotFoundException.class, () -> {
-            associadoService.buscaAssociadoPorId(1l);
+            associadoService.buscarAssociadoPorId(1l);
         });
 
         assertEquals("Associado com id 1 não existe.", exception.getMessage());
@@ -47,7 +47,7 @@ public class AssociadoServiceTest {
     void testaBuscaAssociadoPorIdComSucesso() {
         when(associadoRepository.findById(1l)).thenReturn(Optional.of(new Associado()));
 
-        Associado associado = associadoService.buscaAssociadoPorId(1l);
+        Associado associado = associadoService.buscarAssociadoPorId(1l);
 
         assertNotNull(associado);
     }

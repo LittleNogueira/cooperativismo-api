@@ -32,7 +32,7 @@ public class AssociadoBusiness {
     public Associado buscarAssociadoPorId(Long id){
         Logger.info("Id {} recebido na camanda de negócio ", id);
 
-        return associadoService.buscaAssociadoPorId(id);
+        return associadoService.buscarAssociadoPorId(id);
     }
 
 }

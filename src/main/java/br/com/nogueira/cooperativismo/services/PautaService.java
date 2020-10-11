@@ -31,7 +31,7 @@ public class PautaService {
         return pauta;
     }
 
-    public Pauta buscaPautaPorId(Long id){
+    public Pauta buscarPautaPorId(Long id){
         Logger.info("Id {} recebido na camanda de serviço para realizar busca", id);
 
         Optional<Pauta> pauta = pautaRepository.findById(id);

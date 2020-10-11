@@ -25,7 +25,7 @@ public class KafkaConsumer {
     public void consume(ConsumerRecord<String, ResultadoDto> consumerRecord){
         Logger.info("Inicia consumer de resultado {}", consumerRecord);
 
-        Pauta pauta = pautaService.buscaPautaPorId(consumerRecord.value().getIdPauta());
+        Pauta pauta = pautaService.buscarPautaPorId(consumerRecord.value().getIdPauta());
 
         Logger.info("Inicia mapeamento do dto para entidade {}", consumerRecord.value());
 
