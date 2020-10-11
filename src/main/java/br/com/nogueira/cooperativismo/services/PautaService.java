@@ -1,5 +1,7 @@
 package br.com.nogueira.cooperativismo.services;
 
+import br.com.nogueira.cooperativismo.dtos.ResultadoDto;
+import br.com.nogueira.cooperativismo.enums.VotoEnum;
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.repository.PautaRepository;
@@ -12,6 +14,7 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PautaService {
@@ -65,6 +68,24 @@ public class PautaService {
         Logger.info("Foram encontradas {} pautas finalizdas sem resultado {}", pautas.size(), pautas);
 
         return pautas;
+    }
+
+    public ResultadoDto apurarResultado(Pauta pauta){
+        Logger.info("Entidade recebida na camanda de serviço {}", pauta);
+
+        Logger.info("Apura votação da pauta {}", pauta);
+
+        int votosSim = pauta.getSessao().getVotos().stream()
+                .filter(voto -> voto.getVoto().equals(VotoEnum.SIM))
+                .collect(Collectors.toList()).size();
+
+        int votosNao = pauta.getSessao().getVotos().size() - votosSim;
+
+        ResultadoDto resultadoDto = new ResultadoDto(pauta.getId(),votosSim, votosNao);
+
+        Logger.info("Finaliza apuração de votos {}", resultadoDto);
+
+        return resultadoDto;
     }
 
 }

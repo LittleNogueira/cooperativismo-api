@@ -10,12 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Component
 public class ResultadoSchedule{
 
     @Autowired
@@ -35,27 +32,10 @@ public class ResultadoSchedule{
         Logger.info("Inicia processo de apuração das pautas {}", pautas);
 
         pautas.forEach(pauta -> {
-            kafkaService.send("topico",apurarResultado(pauta)).addCallback(
+            kafkaService.send("topico",pautaService.apurarResultado(pauta)).addCallback(
                     success -> Logger.info("Mensagem enviada para o topico {} com sucesso {}","topico",success),
                     fail -> Logger.info("Falha ao enviar mensagem para o topico {} {}", "topico", fail));
         });
-    }
-
-    private ResultadoDto apurarResultado(Pauta pauta){
-
-        Logger.info("Apura votação da pauta {}", pauta);
-
-        int votosSim = pauta.getSessao().getVotos().stream()
-                .filter(voto -> voto.getVoto().equals(VotoEnum.SIM))
-                .collect(Collectors.toList()).size();
-
-        int votosNao = pauta.getSessao().getVotos().size() - votosSim;
-
-        ResultadoDto resultadoDto = new ResultadoDto(pauta.getId(),votosSim, votosNao);
-
-        Logger.info("Finaliza apuração de votos {}", resultadoDto);
-
-        return resultadoDto;
     }
 
 }
