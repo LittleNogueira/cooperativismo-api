@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.concurrent.SettableListenableFuture;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
@@ -37,6 +36,7 @@ public class ResultadoScheduleTest {
         resultadoSchedule.apuraResultado();
 
         verify(kafkaService,times(2)).send(anyString(),any(ResultadoDto.class));
+        verify(pautaService,times(1)).buscarTodasAsPautasFinalizadasSemResultado();
     }
 
     private Pauta getPauta(){

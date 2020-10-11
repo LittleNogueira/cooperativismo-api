@@ -2,7 +2,6 @@ package br.com.nogueira.cooperativismo.schedules;
 
 import br.com.nogueira.cooperativismo.dtos.ResultadoDto;
 import br.com.nogueira.cooperativismo.entities.Pauta;
-import br.com.nogueira.cooperativismo.enums.VotoEnum;
 import br.com.nogueira.cooperativismo.services.KafkaService;
 import br.com.nogueira.cooperativismo.services.PautaService;
 import br.com.nogueira.cooperativismo.v1.business.AssociadoBusiness;
@@ -10,9 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ResultadoSchedule{
 
     @Autowired

@@ -5,7 +5,6 @@ import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.entities.Resultado;
 import br.com.nogueira.cooperativismo.mappers.ResultdoMapper;
 import br.com.nogueira.cooperativismo.services.PautaService;
-import br.com.nogueira.cooperativismo.v1.business.AssociadoBusiness;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,7 @@ public class KafkaConsumer {
     private static Logger Logger = LoggerFactory.getLogger(KafkaConsumer.class);
 
     @KafkaListener(topics = "topico")
-    public void consume(ConsumerRecord<String, ResultadoDto> consumerRecord){
+    public void consumer(ConsumerRecord<String, ResultadoDto> consumerRecord){
         Logger.info("Inicia consumer de resultado {}", consumerRecord);
 
         Pauta pauta = pautaService.buscarPautaPorId(consumerRecord.value().getIdPauta());
@@ -37,7 +36,7 @@ public class KafkaConsumer {
 
         Logger.info("Adiciona resultado para a pauta {}",pauta);
 
-        pauta = pautaService.salvarPauta(pauta);
+        pautaService.salvarPauta(pauta);
 
         Logger.info("Consumer finalizado com sucesso {}",pauta);
     }
