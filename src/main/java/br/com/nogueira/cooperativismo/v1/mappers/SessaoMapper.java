@@ -10,6 +10,6 @@ public interface SessaoMapper {
 
     SessaoMapper INSTANCE = Mappers.getMapper( SessaoMapper.class );
 
-    Sessao map (SessaoForm form);
+    Sessao map(SessaoForm form);
 
 }

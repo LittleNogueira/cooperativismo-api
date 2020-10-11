@@ -3,13 +3,12 @@ package br.com.nogueira.cooperativismo.mappers;
 import br.com.nogueira.cooperativismo.dtos.ResultadoDto;
 import br.com.nogueira.cooperativismo.entities.Resultado;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface ResultdoMapper {
+public interface ResultadoMapper {
 
-    ResultdoMapper INSTANCE = Mappers.getMapper( ResultdoMapper.class );
+    ResultadoMapper INSTANCE = Mappers.getMapper( ResultadoMapper.class );
 
     Resultado dtoParaEntidade(ResultadoDto dto);
 }

@@ -11,6 +11,6 @@ public interface VotoMapper {
 
     VotoMapper INSTANCE = Mappers.getMapper( VotoMapper.class );
 
-    Voto map (Associado associado, VotoForm form);
+    Voto map(Associado associado, VotoForm form);
 
 }

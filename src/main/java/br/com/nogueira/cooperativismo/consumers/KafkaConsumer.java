@@ -3,7 +3,7 @@ package br.com.nogueira.cooperativismo.consumers;
 import br.com.nogueira.cooperativismo.dtos.ResultadoDto;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.entities.Resultado;
-import br.com.nogueira.cooperativismo.mappers.ResultdoMapper;
+import br.com.nogueira.cooperativismo.mappers.ResultadoMapper;
 import br.com.nogueira.cooperativismo.services.PautaService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class KafkaConsumer {
 
         Logger.info("Inicia mapeamento do dto para entidade {}", consumerRecord.value());
 
-        Resultado resultado = ResultdoMapper.INSTANCE.dtoParaEntidade(consumerRecord.value());
+        Resultado resultado = ResultadoMapper.INSTANCE.dtoParaEntidade(consumerRecord.value());
 
         Logger.info("Mapeamento realizado com sucesso {}", resultado);
 

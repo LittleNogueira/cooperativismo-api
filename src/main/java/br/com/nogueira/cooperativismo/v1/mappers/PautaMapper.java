@@ -11,7 +11,7 @@ public interface PautaMapper {
     
    PautaMapper INSTANCE = Mappers.getMapper( PautaMapper.class );
 
-   Pauta map (PautaForm form);
+   Pauta map(PautaForm form);
 
 }
 

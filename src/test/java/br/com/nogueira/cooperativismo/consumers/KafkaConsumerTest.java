@@ -2,7 +2,6 @@ package br.com.nogueira.cooperativismo.consumers;
 
 import br.com.nogueira.cooperativismo.dtos.ResultadoDto;
 import br.com.nogueira.cooperativismo.entities.Pauta;
-import br.com.nogueira.cooperativismo.entities.Resultado;
 import br.com.nogueira.cooperativismo.services.PautaService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.Test;
