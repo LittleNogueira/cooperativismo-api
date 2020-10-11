@@ -10,6 +10,6 @@ public interface SessaoMapper {
 
     SessaoMapper INSTANCE = Mappers.getMapper( SessaoMapper.class );
 
-    Sessao fomularioParaEntidade (SessaoForm form);
+    Sessao map (SessaoForm form);
 
 }

@@ -10,6 +10,6 @@ public interface AssociadoMapper {
 
     AssociadoMapper INSTANCE = Mappers.getMapper( AssociadoMapper.class );
 
-    Associado fomularioParaEntidade (AssociadoForm form);
+    Associado map (AssociadoForm form);
 
 }

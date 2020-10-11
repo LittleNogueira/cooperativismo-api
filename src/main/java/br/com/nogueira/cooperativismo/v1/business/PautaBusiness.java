@@ -16,6 +16,7 @@ import br.com.nogueira.cooperativismo.v1.mappers.PautaMapper;
 import br.com.nogueira.cooperativismo.v1.mappers.SessaoMapper;
 import br.com.nogueira.cooperativismo.services.AssociadoService;
 import br.com.nogueira.cooperativismo.services.PautaService;
+import br.com.nogueira.cooperativismo.v1.mappers.VotoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class PautaBusiness {
 
         Logger.info("Inicia mapeamento do formulario para entidade {}",pautaForm);
 
-        Pauta pauta = PautaMapper.INSTANCE.fomularioParaEntidade(pautaForm);
+        Pauta pauta = PautaMapper.INSTANCE.map(pautaForm);
 
         Logger.info("Mapeamento realizado com sucesso {}",pauta);
 
@@ -58,7 +59,7 @@ public class PautaBusiness {
 
         Logger.info("Inicia mapeamento do formulario para entidade {}", sessaoForm);
 
-        Sessao sessao = SessaoMapper.INSTANCE.fomularioParaEntidade(sessaoForm);
+        Sessao sessao = SessaoMapper.INSTANCE.map(sessaoForm);
 
         Logger.info("Mapeamento realizado com sucesso {}", sessao);
 
@@ -93,8 +94,15 @@ public class PautaBusiness {
         Associado associado = associadoService.buscaAssociadoPorId(votoForm.getIdAssociado());
         validaSeAssociadoEstaAptoParaVotarNaPauta(associado, pauta);
 
-        Voto voto = new Voto(votoForm.getVoto(), associado, votoForm.getDataHoraVotacao());
+        Logger.info("Inicia mapeamento do formulario {} e associado {} para entidade", votoForm, associado);
+
+        Voto voto = VotoMapper.INSTANCE.map(associado, votoForm);
+
+        Logger.info("Mapeamento realizado com sucesso {}", voto);
+
         pauta.getSessao().getVotos().add(voto);
+
+        Logger.info("Adiciona voto do associado na sessão {}",voto);
 
         pautaService.salvarPauta(pauta);
 
@@ -126,15 +134,27 @@ public class PautaBusiness {
     }
 
     private void validaSeAssociadoEstaAptoParaVotarNaPauta(Associado associado, Pauta pauta){
+        Logger.info("Inicia a validação para verificar se a o associado {} pode votar na pauta {}", associado, pauta);
+
         if(pautaService.existePautaComVotoDoAssociado(pauta.getId(), associado.getId())){
-            throw new NotAcceptable("Um mesmo associado nao pode votar duas vezes.");
+            Logger.info("Um associado {} não pode votar duas vezes na mesma pauta {}", associado, pauta);
+            throw new NotAcceptable("Um associado não pode votar duas vezes na mesma pauta.");
         }
+
+        Logger.info("O associado {} ainda não votou nesta pauta {}", associado, pauta);
+
+        Logger.info("Inicia busca de usuario por cpf {} ", associado.getCpf());
 
         UserDto userDto = userClient.buscarUsuarioPorCpf(associado.getCpf());
 
+        Logger.info("Busca por usuario realizada com sucesso {} ", userDto);
+
         if(userDto.getStatus().equals(StatusEnum.UNABLE_TO_VOTE)){
-            throw new NotAcceptable("O associado nao esta apto para votar.");
+            Logger.info("O associado {} não está apto para votar", userDto);
+            throw new NotAcceptable("O associado não está apto para votar.");
         }
+
+        Logger.info("O associado está apto para votar {}", associado);
     }
 
 }

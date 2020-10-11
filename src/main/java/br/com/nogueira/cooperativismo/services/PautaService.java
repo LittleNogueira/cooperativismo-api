@@ -53,11 +53,23 @@ public class PautaService {
     }
 
     public Boolean existePautaComVotoDoAssociado(Long idPauta, Long idAssociado){
-        return pautaRepository.existsByIdAndSessaoVotosAssociadoId(idPauta, idAssociado);
+        Logger.info("Verifica se existe voto do id associado {} no id pauta {}", idAssociado, idPauta);
+
+        Boolean existeVotoDoAssociadoNaPauta = pautaRepository.existsByIdAndSessaoVotosAssociadoId(idPauta, idAssociado);
+
+        Logger.info("Verificação realizada com sucesso");
+
+        return existeVotoDoAssociadoNaPauta;
     }
 
     public List<Pauta> buscarTodasAsPautasFinalizadasSemResultado(){
-        return pautaRepository.findByResultadoIsNullAndSessaoDataHoraFinalizacaoBefore(LocalDateTime.now());
+        Logger.info("Inicia busca de pautas finalizadas sem resultado");
+
+        List<Pauta> pautas = pautaRepository.findByResultadoIsNullAndSessaoDataHoraFinalizacaoBefore(LocalDateTime.now());
+
+        Logger.info("Foram encontradas {} pautas finalizdas sem resultado {}", pautas.size(), pautas);
+
+        return pautas;
     }
 
 }
