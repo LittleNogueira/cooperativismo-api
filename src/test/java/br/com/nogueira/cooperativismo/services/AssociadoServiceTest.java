@@ -29,6 +29,7 @@ public class AssociadoServiceTest {
         Associado associado = associadoService.salvarAssociado(new Associado());
 
         assertNotNull(associado);
+        verify(associadoRepository,times(1)).save(any(Associado.class));
     }
 
     @Test
@@ -39,7 +40,7 @@ public class AssociadoServiceTest {
             associadoService.buscaAssociadoPorId(1l);
         });
 
-        assertEquals(exception.getMessage(), "Associado com id 1 não existe.");
+        assertEquals("Associado com id 1 não existe.", exception.getMessage());
     }
 
     @Test
