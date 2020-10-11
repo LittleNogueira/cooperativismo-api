@@ -1,7 +1,6 @@
 package br.com.nogueira.cooperativismo.v1.business;
 
 import br.com.nogueira.cooperativismo.entities.Associado;
-import br.com.nogueira.cooperativismo.v1.controllers.AssociadoController;
 import br.com.nogueira.cooperativismo.v1.forms.AssociadoForm;
 import br.com.nogueira.cooperativismo.v1.mappers.AssociadoMapper;
 import br.com.nogueira.cooperativismo.services.AssociadoService;

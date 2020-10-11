@@ -29,5 +29,6 @@ public class KafkaServiceTest {
         ListenableFuture<SendResult<String, Object>> resultListenableFuture = kafkaService.send("topico",new Pauta());
 
         assertNotNull(resultListenableFuture);
+        verify(kafkaTemplate,times(1)).send(anyString(),any());
     }
 }
