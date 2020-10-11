@@ -19,7 +19,7 @@ public class AssociadoService {
 
     private static Logger Logger = LoggerFactory.getLogger(AssociadoService.class);
 
-    public Associado criarAssociado(Associado associado){
+    public Associado salvarAssociado(Associado associado){
         Logger.info("Entidade recebida na camanda de serviço {}", associado);
 
         associado = associadoRepository.save(associado);
@@ -38,7 +38,7 @@ public class AssociadoService {
 
         if(associado.isEmpty()){
             Logger.info("Não existe associado com id {}", id);
-            throw new NotFoundException(MessageFormat.format("Associado com id {0} nao existe.",id));
+            throw new NotFoundException(MessageFormat.format("Associado com id {0} não existe.",id));
         }
 
         Logger.info("Associado encontrada com sucesso {}", associado.get());

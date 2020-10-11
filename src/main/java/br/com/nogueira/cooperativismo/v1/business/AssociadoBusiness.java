@@ -27,7 +27,7 @@ public class AssociadoBusiness {
 
         Logger.info("Mapeamento realizado com sucesso {}", associado);
 
-        return associadoService.criarAssociado(associado);
+        return associadoService.salvarAssociado(associado);
     }
 
     public Associado buscarAssociadoPorId(Long id){
