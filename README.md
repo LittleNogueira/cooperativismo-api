@@ -2,7 +2,7 @@
 
 ## Sobre o projeto
 
-O Cooperativismo API Rest é um projeto desenvolvido em Spring Boot 2 usando Maven, tem como principal objetivo servir dados para a aplicação
+O Cooperativismo API Rest é um pequeno desafio que eu recebi, foi desenvolvido em Spring Boot 2 usando Maven, tem como principal objetivo gerenciar sessões, votos, resultados, pautas e associados, tentei utilizar uma maneira simples para resolver o nosso problema, foi implementando teste para validar as regras de negócios no nosso contexto, e também pensamos em uma maneira de conseguir atender muitas chamadas no serviço de voto, basicamente fazemos uma pequena validação no dados informados e logo em seguida mandamos para uma fila para rodar em segundo plano. 
 
 ## Intruções para configuração
 
@@ -13,7 +13,7 @@ Requisitos
 - <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html"  target="_blank">JDK</a>
 - <a href="https://maven.apache.org/" target="_blank">Maven</a>
 
-Para subir todo o sistema usando o docker basta seguir os passos abaixo, ao executar o comando o docker-compose ira criar dois containers um para a aplicacao em Spring Boot e o outro container para o nosso banco de dados postgres.  
+Para subir todo o sistema usando o docker basta seguir os passos abaixo, ao executar o comando o docker-compose ira criar três containers um para p zookeeper, outro para Kafka e o ultimo container para o nosso banco de dados postgres.  
 
 ```
  cd /caminho/do/projeto/cooperativismo-api/
