@@ -56,3 +56,7 @@ O docker é uma alternativa de virtualização em que o kernel da máquina hospe
 #### Kafka
 
 Apache Kafka é uma plataforma de streaming de eventos distribuídos de código aberto usada por milhares de empresas para pipelines de dados de alto desempenho, análise de streaming, integração de dados e aplicativos de missão crítica.
+
+#### Swagger
+
+Swagger é em essência uma linguagem de descrição de interface para descrever APIs RESTful expressas usando JSON . Swagger é usado junto com um conjunto de ferramentas de software de código aberto para projetar, construir, documentar e usar serviços da Web RESTful . Swagger inclui documentação automatizada, geração de código (em muitas linguagens de programação) e geração de casos de teste.
