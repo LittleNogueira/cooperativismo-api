@@ -1,7 +1,12 @@
 package br.com.nogueira.cooperativismo.services;
 
+import br.com.nogueira.cooperativismo.clients.UserClient;
 import br.com.nogueira.cooperativismo.dtos.ResultadoDto;
+import br.com.nogueira.cooperativismo.dtos.UserDto;
+import br.com.nogueira.cooperativismo.entities.Associado;
+import br.com.nogueira.cooperativismo.enums.StatusEnum;
 import br.com.nogueira.cooperativismo.enums.VotoEnum;
+import br.com.nogueira.cooperativismo.exceptions.NotAcceptable;
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.repository.PautaRepository;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,6 +27,9 @@ public class PautaService {
 
     @Autowired
     private PautaRepository pautaRepository;
+
+    @Autowired
+    private UserClient userClient;
 
     private static Logger Logger = LoggerFactory.getLogger(PautaService.class);
 
@@ -86,6 +95,48 @@ public class PautaService {
         Logger.info("Finaliza apuração de votos {}", resultadoDto);
 
         return resultadoDto;
+    }
+
+    public void validaSePautaEstaAptaParaVotacao(Pauta pauta, LocalDateTime dataHoraVotacao){
+        Logger.info("Inicia a validação para verificar se a pauta pode receber votos {}", pauta);
+
+        if(Objects.isNull(pauta.getSessao())){
+            Logger.info("Está pauta não tem uma sessão aberta {}", pauta);
+            throw new NotAcceptable("Está pauta não tem uma sessão aberta.");
+        }
+
+        Logger.info("Existe uma sessão para está pauta {}", pauta);
+
+        if(dataHoraVotacao.isAfter(pauta.getSessao().getDataHoraFinalizacao())){
+            Logger.info("A sessão desta pauta já foi fechada {}", pauta);
+            throw new NotAcceptable("A sessão desta pauta já foi fechada.");
+        }
+
+        Logger.info("Pauta está apta para receber votos {}", pauta);
+    }
+
+    public void validaSeAssociadoEstaAptoParaVotarNaPauta(Associado associado, Pauta pauta){
+        Logger.info("Inicia a validação para verificar se a o associado {} pode votar na pauta {}", associado, pauta);
+
+        if(existePautaComVotoDoAssociado(pauta.getId(), associado.getId())){
+            Logger.info("Um associado {} não pode votar duas vezes na mesma pauta {}", associado, pauta);
+            throw new NotAcceptable("Um associado não pode votar duas vezes na mesma pauta.");
+        }
+
+        Logger.info("O associado {} ainda não votou nesta pauta {}", associado, pauta);
+
+        Logger.info("Inicia busca de usuario por cpf {} ", associado.getCpf());
+
+        UserDto userDto = userClient.buscarUsuarioPorCpf(associado.getCpf());
+
+        Logger.info("Busca por usuario realizada com sucesso {} ", userDto);
+
+        if(userDto.getStatus().equals(StatusEnum.UNABLE_TO_VOTE)){
+            Logger.info("O associado {} não está apto para votar", userDto);
+            throw new NotAcceptable("O associado não está apto para votar.");
+        }
+
+        Logger.info("O associado está apto para votar {}", associado);
     }
 
 }

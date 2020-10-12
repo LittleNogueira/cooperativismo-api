@@ -21,10 +21,14 @@ public class Sessao {
     List<Voto> votos = new ArrayList<>();
 
     @Column(nullable = false)
-    private LocalDateTime dataHoraCriacao = LocalDateTime.now();
+    private LocalDateTime dataHoraCriacao;
 
     @Column(nullable = false)
     private LocalDateTime dataHoraFinalizacao;
+
+    public Sessao(){
+        this.dataHoraCriacao =  LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -44,13 +48,6 @@ public class Sessao {
 
     public void setDataHoraFinalizacao(LocalDateTime dataHoraFinalizacao) {
         this.dataHoraFinalizacao = dataHoraFinalizacao;
-    }
-
-    @PrePersist
-    public void prePersist(){
-        if(Objects.isNull(dataHoraFinalizacao)){
-            this.dataHoraFinalizacao = dataHoraCriacao.plusMinutes(1);
-        }
     }
 
     @Override

@@ -59,16 +59,16 @@ public class PautaControllerTest {
         assertTrue(responseEntity.getHeaders().containsKey("Location"));
     }
 
-    @Test
-    void testaCriarVoto(){
-        when(pautaBusiness.criarVoto(anyLong(),any(VotoForm.class))).thenReturn(new Voto());
-
-        ResponseEntity<Voto> responseEntity = pautaController.criarVoto(1l, getVotoForm(), UriComponentsBuilder.newInstance());
-
-        assertNotNull(responseEntity.getBody());
-        assertEquals(HttpStatus.CREATED,responseEntity.getStatusCode());
-        assertTrue(responseEntity.getHeaders().containsKey("Location"));
-    }
+//    @Test
+//    void testaCriarVoto(){
+//        when(pautaBusiness.criarVoto(anyLong(),any(VotoForm.class))).thenReturn(new Voto());
+//
+//        ResponseEntity<Voto> responseEntity = pautaController.criarVoto(1l, getVotoForm(), UriComponentsBuilder.newInstance());
+//
+//        assertNotNull(responseEntity.getBody());
+//        assertEquals(HttpStatus.CREATED,responseEntity.getStatusCode());
+//        assertTrue(responseEntity.getHeaders().containsKey("Location"));
+//    }
 
     private PautaForm getPautaForm(){
         PautaForm pautaForm = new PautaForm();

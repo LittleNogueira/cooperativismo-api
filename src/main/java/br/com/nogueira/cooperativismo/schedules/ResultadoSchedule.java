@@ -23,7 +23,7 @@ public class ResultadoSchedule{
     @Autowired
     private KafkaService<ResultadoDto> kafkaService;
 
-    @Value("${topic.name}")
+    @Value("${topic.result.name}")
     private String topico;
 
     private static Logger Logger = LoggerFactory.getLogger(AssociadoBusiness.class);
@@ -38,8 +38,8 @@ public class ResultadoSchedule{
 
         pautas.forEach(pauta -> {
             kafkaService.send(topico,pautaService.apurarResultado(pauta)).addCallback(
-                    success -> Logger.info("Mensagem enviada para o topico {} com sucesso {}","topico",success),
-                    fail -> Logger.info("Falha ao enviar mensagem para o topico {} {}", "topico", fail));
+                    sucesso -> Logger.info("Mensagem enviada para o topico '{}' com sucesso {}",topico,sucesso),
+                    falha -> Logger.info("Falha ao enviar mensagem para o topico {} {}",topico, falha));
         });
     }
 

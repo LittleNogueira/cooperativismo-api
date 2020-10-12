@@ -16,7 +16,11 @@ public class VotoForm {
     @NotNull
     private VotoEnum voto;
 
-    private LocalDateTime dataHoraVotacao = LocalDateTime.now();
+    private LocalDateTime dataHoraVotacao;
+
+    public VotoForm(){
+        this.dataHoraVotacao = LocalDateTime.now();
+    }
 
     public Long getIdAssociado() {
         return idAssociado;

@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 public class KafkaConsumerTest {
 
     @InjectMocks
-    private KafkaConsumer kafkaConsumer;
+    private ResultadoConsumer kafkaConsumer;
 
     @Mock
     private PautaService pautaService;

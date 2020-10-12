@@ -1,6 +1,7 @@
 package br.com.nogueira.cooperativismo.v1.controllers;
 
 import br.com.nogueira.cooperativismo.CooperativismoApplication;
+import br.com.nogueira.cooperativismo.entities.Ticket;
 import br.com.nogueira.cooperativismo.v1.business.PautaBusiness;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.entities.Voto;
@@ -68,15 +69,15 @@ public class PautaController {
 
     @PostMapping(path = "/{id}/votos")
     @ApiOperation(value = "Cria um novo voto para uma pauta")
-    public ResponseEntity<Voto> criarVoto(@PathVariable Long id, @Valid @RequestBody VotoForm votoForm, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<Ticket> criarVoto(@PathVariable Long id, @Valid @RequestBody VotoForm votoForm, UriComponentsBuilder uriComponentsBuilder){
         Logger.info("Requisição recebida para criar um voto {} para a pauta com id {}", votoForm, id);
 
-        Voto voto = pautaBusiness.criarVoto(id,votoForm);
+        Ticket ticket = pautaBusiness.criarVoto(id,votoForm);
 
-        Logger.info("Requisição concluida com sucesso {}", voto);
+        Logger.info("Requisição concluida com sucesso {}", ticket);
 
-        URI uri = uriComponentsBuilder.path("/v1/pautas/{id}").buildAndExpand(id).toUri();
-        return ResponseEntity.created(uri).body(voto);
+        URI uri = uriComponentsBuilder.path("/v1/tickets/{id}").buildAndExpand(ticket.getId()).toUri();
+        return ResponseEntity.created(uri).body(ticket);
     }
 
 }
