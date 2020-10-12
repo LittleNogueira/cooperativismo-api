@@ -1,6 +1,8 @@
 package br.com.nogueira.cooperativismo.services;
 
+import br.com.nogueira.cooperativismo.clients.UserClient;
 import br.com.nogueira.cooperativismo.dtos.ResultadoDto;
+import br.com.nogueira.cooperativismo.dtos.UserDto;
 import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.entities.Sessao;
@@ -8,6 +10,7 @@ import br.com.nogueira.cooperativismo.entities.Voto;
 import br.com.nogueira.cooperativismo.enums.ResultadoEnum;
 import br.com.nogueira.cooperativismo.enums.StatusEnum;
 import br.com.nogueira.cooperativismo.enums.VotoEnum;
+import br.com.nogueira.cooperativismo.exceptions.NotAcceptable;
 import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.repository.PautaRepository;
 import org.junit.jupiter.api.Test;
@@ -31,6 +34,9 @@ public class PautaServiceTest {
 
     @Mock
     private PautaRepository pautaRepository;
+
+    @Mock
+    private UserClient userClient;
 
     @Test
     public void testaCriarAssociado(){
@@ -130,6 +136,73 @@ public class PautaServiceTest {
         assertEquals(0, resultadoDto.getVotosSim());
         assertEquals(0, resultadoDto.getVotosNao());
         assertEquals(ResultadoEnum.EMPATADO, resultadoDto.getResultado());
+    }
+
+    @Test
+    public void testaValidaSePautaEstaAptaParaVotacao(){
+        Pauta pauta = getPauta();
+        pautaService.validaSePautaEstaAptaParaVotacao(pauta, LocalDateTime.now());
+    }
+
+    @Test
+    public void testaValidaSePautaEstaAptaParaVotacaoComPautaSemSessao(){
+        Pauta pauta = getPauta();
+        pauta.setSessao(null);
+
+        NotAcceptable exception = assertThrows(NotAcceptable.class, () -> {
+            pautaService.validaSePautaEstaAptaParaVotacao(pauta, LocalDateTime.now());
+        });
+
+        assertEquals("Está pauta não tem uma sessão aberta.", exception.getMessage());
+    }
+
+    @Test
+    public void testaValidaSePautaEstaAptaParaVotacaoComPautaSessaoFechada(){
+        Pauta pauta = getPauta();
+
+        NotAcceptable exception = assertThrows(NotAcceptable.class, () -> {
+            pautaService.validaSePautaEstaAptaParaVotacao(pauta, pauta.getSessao().getDataHoraFinalizacao().plusMinutes(1));
+        });
+
+        assertEquals("A sessão desta pauta já foi fechada.", exception.getMessage());
+    }
+
+    @Test
+    public void testaValidaSeAssociadoEstaAptoParaVotarNaPauta(){
+        UserDto userDto = new UserDto();
+        userDto.setStatus(StatusEnum.ABLE_TO_VOTE);
+
+        when(pautaRepository.existsByIdAndSessaoVotosAssociadoId(any(), any())).thenReturn(Boolean.FALSE);
+        when(userClient.buscarUsuarioPorCpf(any())).thenReturn(userDto);
+
+        pautaService.validaSeAssociadoEstaAptoParaVotarNaPauta(new Associado(),getPauta());
+    }
+
+    @Test
+    public void testaValidaSeAssociadoEstaAptoParaVotarEmUmaPautaOndeAssociadoJaVotou(){
+        when(pautaRepository.existsByIdAndSessaoVotosAssociadoId(any(), any())).thenReturn(Boolean.TRUE);
+
+
+        NotAcceptable exception = assertThrows(NotAcceptable.class, () -> {
+            pautaService.validaSeAssociadoEstaAptoParaVotarNaPauta(new Associado(),getPauta());
+        });
+
+        assertEquals("Um associado não pode votar duas vezes na mesma pauta.", exception.getMessage());
+    }
+
+    @Test
+    public  void testaValidaSeAssociadoEstaAptoParaVotarNaPautaComAssociadoNaoApto(){
+        UserDto userDto = new UserDto();
+        userDto.setStatus(StatusEnum.UNABLE_TO_VOTE);
+
+        when(pautaRepository.existsByIdAndSessaoVotosAssociadoId(any(), any())).thenReturn(Boolean.FALSE);
+        when(userClient.buscarUsuarioPorCpf(any())).thenReturn(userDto);
+
+        NotAcceptable exception = assertThrows(NotAcceptable.class, () -> {
+            pautaService.validaSeAssociadoEstaAptoParaVotarNaPauta(new Associado(),getPauta());
+        });
+
+        assertEquals("O associado não está apto para votar.", exception.getMessage());
     }
 
     private Pauta getPauta(){

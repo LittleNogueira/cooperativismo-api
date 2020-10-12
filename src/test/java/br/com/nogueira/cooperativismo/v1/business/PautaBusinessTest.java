@@ -1,17 +1,14 @@
 package br.com.nogueira.cooperativismo.v1.business;
 
-import br.com.nogueira.cooperativismo.clients.UserClient;
+import br.com.nogueira.cooperativismo.dtos.TicketDto;
 import br.com.nogueira.cooperativismo.dtos.UserDto;
-import br.com.nogueira.cooperativismo.entities.Associado;
-import br.com.nogueira.cooperativismo.entities.Pauta;
-import br.com.nogueira.cooperativismo.entities.Sessao;
-import br.com.nogueira.cooperativismo.entities.Voto;
+import br.com.nogueira.cooperativismo.entities.*;
 import br.com.nogueira.cooperativismo.enums.StatusEnum;
 import br.com.nogueira.cooperativismo.enums.VotoEnum;
-import br.com.nogueira.cooperativismo.exceptions.NotAcceptable;
-import br.com.nogueira.cooperativismo.exceptions.NotFoundException;
 import br.com.nogueira.cooperativismo.services.AssociadoService;
+import br.com.nogueira.cooperativismo.services.KafkaService;
 import br.com.nogueira.cooperativismo.services.PautaService;
+import br.com.nogueira.cooperativismo.services.TicketService;
 import br.com.nogueira.cooperativismo.v1.forms.PautaForm;
 import br.com.nogueira.cooperativismo.v1.forms.SessaoForm;
 import br.com.nogueira.cooperativismo.v1.forms.VotoForm;
@@ -19,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.util.concurrent.SettableListenableFuture;
 
 import java.time.LocalDateTime;
 
@@ -38,7 +37,10 @@ public class PautaBusinessTest {
     private AssociadoService associadoService;
 
     @Mock
-    private UserClient userClient;
+    private TicketService ticketService;
+
+    @Mock
+    private KafkaService<TicketDto> kafkaService;
 
     @Test
     public void testaCriarPauta(){
@@ -86,112 +88,29 @@ public class PautaBusinessTest {
         verify(pautaService,times(1)).buscarPautaPorId(anyLong());
     }
 
-//    @Test
-//    public void testaCriarVoto(){
-//        when(pautaService.buscarPautaPorId(anyLong())).thenReturn(getPauta());
-//        when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(getAssociado());
-//        when(userClient.buscarUsuarioPorCpf(anyString())).thenReturn(getUserDto());
-//        when(pautaService.existePautaComVotoDoAssociado(any(), any())).thenReturn(Boolean.FALSE);
-//
-//        VotoForm votoForm = new VotoForm();
-//        votoForm.setVoto(VotoEnum.SIM);
-//        votoForm.setIdAssociado(1l);
-//
-//        Voto voto = pautaBusiness.criarVoto(1l, votoForm);
-//
-//        assertNotNull(voto);
-//
-//        verify(pautaService,times(1)).salvarPauta(any(Pauta.class));
-//        verify(pautaService,times(1)).buscarPautaPorId(anyLong());
-//        verify(userClient,times(1)).buscarUsuarioPorCpf(anyString());
-//        verify(associadoService,times(1)).buscarAssociadoPorId(anyLong());
-//        verify(pautaService,times(1)).existePautaComVotoDoAssociado(any(), any());
-//    }
+    @Test
+    public void testaCriarVoto(){
+        ReflectionTestUtils.setField(pautaBusiness,"topico","topico-ticket");
 
-//    @Test
-//    public void testaCriarVotoEmUmaPautaSemSessao(){
-//        Pauta pauta = getPauta();
-//        pauta.setSessao(null);
-//
-//        when(pautaService.buscarPautaPorId(anyLong())).thenReturn(pauta);
-//
-//        VotoForm votoForm = new VotoForm();
-//        votoForm.setVoto(VotoEnum.SIM);
-//        votoForm.setIdAssociado(1l);
-//
-//        NotAcceptable exception = assertThrows(NotAcceptable.class, () -> {
-//            pautaBusiness.criarVoto(1l, votoForm);
-//        });
-//
-//        assertEquals("Está pauta não tem uma sessão aberta.", exception.getMessage());
-//        verify(pautaService,times(1)).buscarPautaPorId(anyLong());
-//    }
-//
-//    @Test
-//    public void testaCriarVotoEmUmaPautaComSessaoFechada(){
-//        VotoForm votoForm = new VotoForm();
-//        votoForm.setVoto(VotoEnum.SIM);
-//        votoForm.setIdAssociado(1l);
-//
-//        Pauta pauta = getPauta();
-//        pauta.getSessao().setDataHoraFinalizacao(votoForm.getDataHoraVotacao().minusMinutes(1));
-//
-//        when(pautaService.buscarPautaPorId(anyLong())).thenReturn(pauta);
-//
-//        NotAcceptable exception = assertThrows(NotAcceptable.class, () -> {
-//            pautaBusiness.criarVoto(1l, votoForm);
-//        });
-//
-//        assertEquals("A sessão desta pauta já foi fechada.", exception.getMessage());
-//        verify(pautaService,times(1)).buscarPautaPorId(anyLong());
-//    }
-//
-//    @Test
-//    public  void testaCriarVotoEmUmaPautaOndeOAssociadoJaVotou(){
-//        when(pautaService.buscarPautaPorId(anyLong())).thenReturn(getPauta());
-//        when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(getAssociado());
-//        when(pautaService.existePautaComVotoDoAssociado(any(), any())).thenReturn(Boolean.TRUE);
-//
-//        VotoForm votoForm = new VotoForm();
-//        votoForm.setVoto(VotoEnum.SIM);
-//        votoForm.setIdAssociado(1l);
-//
-//        NotAcceptable exception = assertThrows(NotAcceptable.class, () -> {
-//            pautaBusiness.criarVoto(1l, votoForm);
-//        });
-//
-//        assertEquals("Um associado não pode votar duas vezes na mesma pauta.", exception.getMessage());
-//
-//        verify(pautaService,times(1)).buscarPautaPorId(anyLong());
-//        verify(associadoService,times(1)).buscarAssociadoPorId(anyLong());
-//        verify(pautaService,times(1)).existePautaComVotoDoAssociado(any(), any());
-//    }
-//
-//    @Test
-//    public void testaCriarVotoComAssociadNaoAptoParaVotar(){
-//        UserDto userDto = getUserDto();
-//        userDto.setStatus(StatusEnum.UNABLE_TO_VOTE);
-//
-//        when(pautaService.buscarPautaPorId(anyLong())).thenReturn(getPauta());
-//        when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(getAssociado());
-//        when(userClient.buscarUsuarioPorCpf(anyString())).thenReturn(userDto);
-//        when(pautaService.existePautaComVotoDoAssociado(any(), any())).thenReturn(Boolean.FALSE);
-//
-//        VotoForm votoForm = new VotoForm();
-//        votoForm.setVoto(VotoEnum.SIM);
-//        votoForm.setIdAssociado(1l);
-//
-//        NotAcceptable exception = assertThrows(NotAcceptable.class, () -> {
-//            pautaBusiness.criarVoto(1l, votoForm);
-//        });
-//
-//        assertEquals("O associado não está apto para votar.", exception.getMessage());
-//
-//        verify(pautaService,times(1)).buscarPautaPorId(anyLong());
-//        verify(userClient,times(1)).buscarUsuarioPorCpf(anyString());
-//        verify(associadoService,times(1)).buscarAssociadoPorId(anyLong());
-//        verify(pautaService,times(1)).existePautaComVotoDoAssociado(any(), any());
-//    }
+        when(pautaService.buscarPautaPorId(anyLong())).thenReturn(getPauta());
+        when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(getAssociado());
+        when(pautaService.existePautaComVotoDoAssociado(any(), any())).thenReturn(Boolean.FALSE);
+        when(ticketService.salvarTicker(any(Ticket.class))).thenReturn(new Ticket());
+        when(kafkaService.send(anyString(),any(TicketDto.class))).thenReturn(new SettableListenableFuture<>());
+
+        VotoForm votoForm = new VotoForm();
+        votoForm.setVoto(VotoEnum.SIM);
+        votoForm.setIdAssociado(1l);
+
+        Ticket ticket = pautaBusiness.criarVoto(1l, votoForm);
+
+        assertNotNull(ticket);
+
+        verify(pautaService,times(1)).buscarPautaPorId(anyLong());
+        verify(associadoService,times(1)).buscarAssociadoPorId(anyLong());
+        verify(ticketService, times(1)).salvarTicker(any(Ticket.class));
+
+    }
 
     private PautaForm getPautaForm(){
         PautaForm pautaForm = new PautaForm();

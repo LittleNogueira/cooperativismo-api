@@ -29,7 +29,7 @@ public class ResultadoScheduleTest {
 
     @Test
     public void testaApuraResultado(){
-        ReflectionTestUtils.setField(resultadoSchedule,"topico","topico");
+        ReflectionTestUtils.setField(resultadoSchedule,"topico","topico-result");
 
         when(pautaService.buscarTodasAsPautasFinalizadasSemResultado()).thenReturn(Arrays.asList(getPauta(),getPauta()));
         when(pautaService.apurarResultado(any(Pauta.class))).thenReturn(new ResultadoDto(1l,1,1));
