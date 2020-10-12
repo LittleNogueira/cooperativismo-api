@@ -21,7 +21,7 @@ public class TicketService {
 
     private static Logger Logger = LoggerFactory.getLogger(TicketService.class);
 
-    public Ticket salvarTicker(Ticket ticket){
+    public Ticket salvarTicket(Ticket ticket){
         Logger.info("Entidade recebida na camanda de serviço {}", ticket);
 
         ticketRepository.save(ticket);

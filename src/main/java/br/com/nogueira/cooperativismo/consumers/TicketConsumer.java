@@ -37,7 +37,7 @@ public class TicketConsumer {
             ticket.setStatus(StatusTicketEnum.FINALIZADO_COM_ERRO);
         }
 
-        ticketService.salvarTicker(ticket);
+        ticketService.salvarTicket(ticket);
 
         Logger.info("Consumer finalizado com sucesso {}",ticket);
     }

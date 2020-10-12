@@ -95,7 +95,7 @@ public class PautaBusinessTest {
         when(pautaService.buscarPautaPorId(anyLong())).thenReturn(getPauta());
         when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(getAssociado());
         when(pautaService.existePautaComVotoDoAssociado(any(), any())).thenReturn(Boolean.FALSE);
-        when(ticketService.salvarTicker(any(Ticket.class))).thenReturn(new Ticket());
+        when(ticketService.salvarTicket(any(Ticket.class))).thenReturn(new Ticket());
         when(kafkaService.send(anyString(),any(TicketDto.class))).thenReturn(new SettableListenableFuture<>());
 
         VotoForm votoForm = new VotoForm();
@@ -108,7 +108,7 @@ public class PautaBusinessTest {
 
         verify(pautaService,times(1)).buscarPautaPorId(anyLong());
         verify(associadoService,times(1)).buscarAssociadoPorId(anyLong());
-        verify(ticketService, times(1)).salvarTicker(any(Ticket.class));
+        verify(ticketService, times(1)).salvarTicket(any(Ticket.class));
 
     }
 

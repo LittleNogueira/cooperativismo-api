@@ -1,11 +1,8 @@
 package br.com.nogueira.cooperativismo.v1.business;
 
-import br.com.nogueira.cooperativismo.clients.UserClient;
 import br.com.nogueira.cooperativismo.dtos.TicketDto;
-import br.com.nogueira.cooperativismo.dtos.UserDto;
 import br.com.nogueira.cooperativismo.dtos.VotoDto;
 import br.com.nogueira.cooperativismo.entities.*;
-import br.com.nogueira.cooperativismo.enums.StatusEnum;
 import br.com.nogueira.cooperativismo.exceptions.NotAcceptable;
 import br.com.nogueira.cooperativismo.mappers.TicketMapper;
 import br.com.nogueira.cooperativismo.services.KafkaService;
@@ -103,7 +100,7 @@ public class PautaBusiness {
 
         Logger.info("Inicia mapeamento do formulario {} para dto", votoForm);
 
-        Ticket ticket = ticketService.salvarTicker(new Ticket());
+        Ticket ticket = ticketService.salvarTicket(new Ticket());
 
         VotoDto votoDto = VotoMapper.INSTANCE.map(idPauta,votoForm);
         TicketDto ticketDto =  TicketMapper.INSTANCE.map(votoDto, ticket);
