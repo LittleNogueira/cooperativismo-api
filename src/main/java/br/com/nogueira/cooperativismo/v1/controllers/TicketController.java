@@ -20,7 +20,7 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    private static Logger Logger = LoggerFactory.getLogger(PautaController.class);
+    private static Logger Logger = LoggerFactory.getLogger(TicketController.class);
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Busca uma pauta por id")
