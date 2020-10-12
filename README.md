@@ -31,6 +31,8 @@ Pronto, o aplicativo está pronto para uso em http://localhost:8080/api 🎉 �
 
 Para entrar na documentação gerada automaticamente do swagger basta acessar http://localhost:8080/api/swagger-ui.html
 
+No projeto se encontra uma collections para importar no Insomnia, contém todos os endpoints e possiveis dados para mandar na requisição.   
+
 ## Sobre as tecnologias
 
 #### Spring Boot 2
