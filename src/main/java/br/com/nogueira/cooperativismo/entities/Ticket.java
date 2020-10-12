@@ -41,4 +41,13 @@ public class Ticket {
     public void setMotivoErro(String motivoErro) {
         this.motivoErro = motivoErro;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", status=" + status +
+                ", motivoErro='" + motivoErro + '\'' +
+                '}';
+    }
 }

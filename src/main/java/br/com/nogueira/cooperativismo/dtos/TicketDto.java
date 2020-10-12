@@ -33,4 +33,13 @@ public class TicketDto {
     public void setVotoDto(VotoDto votoDto) {
         this.votoDto = votoDto;
     }
+
+    @Override
+    public String toString() {
+        return "TicketDto{" +
+                "id=" + id +
+                ", status=" + status +
+                ", votoDto=" + votoDto +
+                '}';
+    }
 }

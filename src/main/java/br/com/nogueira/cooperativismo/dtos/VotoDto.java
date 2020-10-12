@@ -45,4 +45,15 @@ public class VotoDto {
     public void setIdPauta(Long idPauta) {
         this.idPauta = idPauta;
     }
+
+    @Override
+    public String toString() {
+        return "VotoDto{" +
+                "idAssociado=" + idAssociado +
+                ", idPauta=" + idPauta +
+                ", voto=" + voto +
+                ", dataHoraVotacao=" + dataHoraVotacao +
+                '}';
+    }
+    
 }
