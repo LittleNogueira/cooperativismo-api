@@ -2,7 +2,7 @@
 
 ## Sobre o projeto
 
-O Cooperativismo API Rest é um pequeno desafio que eu recebi, foi desenvolvido em Spring Boot 2 usando Maven, tem como principal objetivo gerenciar sessões, votos, resultados, pautas e associados, no momento a nosso API permite cadastrar N associados com o mesmo CPF por motivos de facilidade nos testes, tentei utilizar uma maneira simples para resolver o nosso problema, foi implementando teste para validar as regras de negócios no nosso contexto, e também pensamos em uma maneira de conseguir atender muitas chamadas no serviço de voto, basicamente fazemos uma pequena validação no dados informados e logo em seguida mandamos para uma fila para rodar em segundo plano e possui bastante logs para facilitar o rastreamento. 
+O Cooperativismo API Rest é um pequeno desafio que eu recebi, foi desenvolvido em Spring Boot 2 usando Maven, tem como principal objetivo gerenciar sessões, votos, resultados, pautas e associados, no momento a API permite cadastrar N associados com o mesmo CPF por motivos de facilidade nos testes, tentei utilizar uma maneira simples para resolver o problema, foi implementando teste para validar as regras de negócios no contexto apresentado, e também pensei em uma maneira de conseguir atender muitas chamadas no serviço de voto, basicamente faz uma pequena validação nos dados informados e logo em seguida é mandado para uma fila e assim rodar em segundo plano e possui bastante logs para facilitar o rastreamento. 
 
 ## Intruções para configuração
 
