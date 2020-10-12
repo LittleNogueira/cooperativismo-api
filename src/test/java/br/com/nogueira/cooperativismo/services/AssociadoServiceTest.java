@@ -23,7 +23,7 @@ public class AssociadoServiceTest {
     private AssociadoRepository associadoRepository;
 
     @Test
-    void testaCriarAssociadoComSucesso(){
+    public void testaCriarAssociadoComSucesso(){
         when(associadoRepository.save(any(Associado.class))).thenReturn(new Associado());
 
         Associado associado = associadoService.salvarAssociado(new Associado());
@@ -33,7 +33,7 @@ public class AssociadoServiceTest {
     }
 
     @Test
-    void testaBuscaAssociadoPorIdComIdQueNaoExiste() {
+    public void testaBuscaAssociadoPorIdComIdQueNaoExiste() {
         when(associadoRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         NotFoundException exception = assertThrows(NotFoundException.class, () -> {
@@ -44,7 +44,7 @@ public class AssociadoServiceTest {
     }
 
     @Test
-    void testaBuscaAssociadoPorIdComSucesso() {
+    public void testaBuscaAssociadoPorIdComSucesso() {
         when(associadoRepository.findById(1l)).thenReturn(Optional.of(new Associado()));
 
         Associado associado = associadoService.buscarAssociadoPorId(1l);

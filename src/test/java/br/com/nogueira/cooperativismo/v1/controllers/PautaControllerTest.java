@@ -1,12 +1,9 @@
-package br.com.nogueira.cooperativismo.v1.business.controllers;
+package br.com.nogueira.cooperativismo.v1.controllers;
 
-import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.entities.Pauta;
 import br.com.nogueira.cooperativismo.entities.Voto;
 import br.com.nogueira.cooperativismo.enums.VotoEnum;
 import br.com.nogueira.cooperativismo.v1.business.PautaBusiness;
-import br.com.nogueira.cooperativismo.v1.controllers.PautaController;
-import br.com.nogueira.cooperativismo.v1.forms.AssociadoForm;
 import br.com.nogueira.cooperativismo.v1.forms.PautaForm;
 import br.com.nogueira.cooperativismo.v1.forms.SessaoForm;
 import br.com.nogueira.cooperativismo.v1.forms.VotoForm;

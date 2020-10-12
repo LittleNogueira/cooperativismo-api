@@ -23,7 +23,7 @@ public class KafkaServiceTest {
     private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Test
-    void testaEnvioDeMensagem(){
+    public void testaEnvioDeMensagem(){
         when(kafkaTemplate.send(anyString(),any())).thenReturn(new SettableListenableFuture<>());
 
         ListenableFuture<SendResult<String, Object>> resultListenableFuture = kafkaService.send("topico",new Pauta());

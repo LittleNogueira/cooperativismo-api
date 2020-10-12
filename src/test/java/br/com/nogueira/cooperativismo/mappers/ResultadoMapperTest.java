@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ResultadoMapperTest {
 
     @Test
-    void testaMap(){
+    public void testaMap(){
         ResultadoDto resultadoDto = new ResultadoDto(1l,2,1);
 
         Resultado resultado = ResultadoMapper.INSTANCE.dtoParaEntidade(resultadoDto);

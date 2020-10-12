@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AssociadoMapperTest {
 
     @Test
-    void testaMap(){
+    public void testaMap(){
         AssociadoForm associadoForm = getAssociadoForm();
 
         Associado associado = AssociadoMapper.INSTANCE.map(associadoForm);

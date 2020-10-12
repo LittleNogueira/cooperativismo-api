@@ -41,7 +41,7 @@ public class PautaBusinessTest {
     private UserClient userClient;
 
     @Test
-    void testaCriarPauta(){
+    public void testaCriarPauta(){
         when(pautaService.salvarPauta(any(Pauta.class))).thenReturn(new Pauta());
 
         Pauta pauta = pautaBusiness.criarPauta(getPautaForm());
@@ -51,7 +51,7 @@ public class PautaBusinessTest {
     }
 
     @Test
-    void testaBuscarPautaPorId(){
+    public void testaBuscarPautaPorId(){
         when(pautaService.buscarPautaPorId(anyLong())).thenReturn(new Pauta());
 
         Pauta pauta = pautaService.buscarPautaPorId(1l);
@@ -61,7 +61,7 @@ public class PautaBusinessTest {
     }
 
     @Test
-    void testaCriarSessaoComDataHoraFinalizacaoPadrao(){
+    public void testaCriarSessaoComDataHoraFinalizacaoPadrao(){
         when(pautaService.buscarPautaPorId(anyLong())).thenReturn(new Pauta());
 
         Pauta pauta = pautaBusiness.criarSessao(1l,new SessaoForm());
@@ -72,7 +72,7 @@ public class PautaBusinessTest {
     }
 
     @Test
-    void testaCriarSessaoComDataHoraFinalizacaoInformada(){
+    public void testaCriarSessaoComDataHoraFinalizacaoInformada(){
         when(pautaService.buscarPautaPorId(anyLong())).thenReturn(new Pauta());
 
         SessaoForm sessaoForm = new SessaoForm();
@@ -87,7 +87,7 @@ public class PautaBusinessTest {
     }
 
     @Test
-    void testaCriarVoto(){
+    public void testaCriarVoto(){
         when(pautaService.buscarPautaPorId(anyLong())).thenReturn(getPauta());
         when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(getAssociado());
         when(userClient.buscarUsuarioPorCpf(anyString())).thenReturn(getUserDto());
@@ -109,7 +109,7 @@ public class PautaBusinessTest {
     }
 
     @Test
-    void testaCriarVotoEmUmaPautaSemSessao(){
+    public void testaCriarVotoEmUmaPautaSemSessao(){
         Pauta pauta = getPauta();
         pauta.setSessao(null);
 
@@ -128,7 +128,7 @@ public class PautaBusinessTest {
     }
 
     @Test
-    void testaCriarVotoEmUmaPautaComSessaoFechada(){
+    public void testaCriarVotoEmUmaPautaComSessaoFechada(){
         VotoForm votoForm = new VotoForm();
         votoForm.setVoto(VotoEnum.SIM);
         votoForm.setIdAssociado(1l);
@@ -147,7 +147,7 @@ public class PautaBusinessTest {
     }
 
     @Test
-    void testaCriarVotoEmUmaPautaOndeOAssociadoJaVotou(){
+    public  void testaCriarVotoEmUmaPautaOndeOAssociadoJaVotou(){
         when(pautaService.buscarPautaPorId(anyLong())).thenReturn(getPauta());
         when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(getAssociado());
         when(pautaService.existePautaComVotoDoAssociado(any(), any())).thenReturn(Boolean.TRUE);
@@ -168,7 +168,7 @@ public class PautaBusinessTest {
     }
 
     @Test
-    void testaCriarVotoComAssociadNaoAptoParaVotar(){
+    public void testaCriarVotoComAssociadNaoAptoParaVotar(){
         UserDto userDto = getUserDto();
         userDto.setStatus(StatusEnum.UNABLE_TO_VOTE);
 

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SessaoMapperTest {
 
     @Test
-    void testaMap(){
+    public void testaMap(){
         SessaoForm sessaoForm = new SessaoForm();
         sessaoForm.setDataHoraFinalizacao(LocalDateTime.now());
 

@@ -6,6 +6,9 @@ client:
     user:
         url: https://user-info.herokuapp.com/users
 
+topic:
+    name: topico
+
 spring:
     datasource:
         driver-class-name: org.postgresql.Driver

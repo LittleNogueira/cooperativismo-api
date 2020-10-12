@@ -21,7 +21,7 @@ public class AssociadoBusinessTest {
     private AssociadoService associadoService;
 
     @Test
-    void testaCriarAssociado(){
+    public void testaCriarAssociado(){
         when(associadoService.salvarAssociado(any(Associado.class))).thenReturn(new Associado());
 
         Associado associado = associadoBusiness.criarAssociado(getAssociadoForm());
@@ -31,7 +31,7 @@ public class AssociadoBusinessTest {
     }
 
     @Test
-    void testaBuscarAssociadoPorId(){
+    public void testaBuscarAssociadoPorId(){
         when(associadoService.buscarAssociadoPorId(anyLong())).thenReturn(new Associado());
 
         Associado associado = associadoBusiness.buscarAssociadoPorId(1l);

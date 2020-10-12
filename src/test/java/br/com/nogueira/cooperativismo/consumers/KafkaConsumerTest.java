@@ -23,7 +23,7 @@ public class KafkaConsumerTest {
     private PautaService pautaService;
 
     @Test
-    void testaConsumer(){
+    public void testaConsumer(){
         ConsumerRecord<String, ResultadoDto> consumerRecord = new ConsumerRecord<String, ResultadoDto>("topico",1,1, UUID.randomUUID().toString(),new ResultadoDto(1l,1,1));
 
         when(pautaService.buscarPautaPorId(any())).thenReturn(new Pauta());

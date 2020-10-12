@@ -1,8 +1,7 @@
-package br.com.nogueira.cooperativismo.v1.business.controllers;
+package br.com.nogueira.cooperativismo.v1.controllers;
 
 import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.v1.business.AssociadoBusiness;
-import br.com.nogueira.cooperativismo.v1.controllers.AssociadoController;
 import br.com.nogueira.cooperativismo.v1.forms.AssociadoForm;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

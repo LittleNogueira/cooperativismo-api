@@ -2,13 +2,13 @@ package br.com.nogueira.cooperativismo.schedules;
 
 import br.com.nogueira.cooperativismo.dtos.ResultadoDto;
 import br.com.nogueira.cooperativismo.entities.*;
-import br.com.nogueira.cooperativismo.enums.VotoEnum;
 import br.com.nogueira.cooperativismo.services.KafkaService;
 import br.com.nogueira.cooperativismo.services.PautaService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.util.concurrent.SettableListenableFuture;
 
 import java.util.Arrays;
@@ -28,7 +28,9 @@ public class ResultadoScheduleTest {
     private KafkaService<ResultadoDto> kafkaService;
 
     @Test
-    void testaApuraResultado(){
+    public void testaApuraResultado(){
+        ReflectionTestUtils.setField(resultadoSchedule,"topico","topico");
+
         when(pautaService.buscarTodasAsPautasFinalizadasSemResultado()).thenReturn(Arrays.asList(getPauta(),getPauta()));
         when(pautaService.apurarResultado(any(Pauta.class))).thenReturn(new ResultadoDto(1l,1,1));
         when(kafkaService.send(anyString(),any(ResultadoDto.class))).thenReturn(new SettableListenableFuture<>());

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class VotoMapperTest {
 
     @Test
-    void testaMap(){
+    public void testaMap(){
         VotoForm votoForm = getVotoForm();
         Associado associado = new Associado();
 

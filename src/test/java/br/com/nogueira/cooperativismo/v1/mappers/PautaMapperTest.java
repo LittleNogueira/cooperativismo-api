@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PautaMapperTest {
 
     @Test
-    void testaMap(){
+    public void testaMap(){
         PautaForm pautaForm = getPautaForm();
         Pauta pauta = PautaMapper.INSTANCE.map(pautaForm);
 

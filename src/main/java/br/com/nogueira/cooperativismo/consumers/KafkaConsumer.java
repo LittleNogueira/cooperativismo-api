@@ -20,7 +20,7 @@ public class KafkaConsumer {
 
     private static Logger Logger = LoggerFactory.getLogger(KafkaConsumer.class);
 
-    @KafkaListener(topics = "topico")
+    @KafkaListener(topics = "${topic.name}")
     public void consumer(ConsumerRecord<String, ResultadoDto> consumerRecord){
         Logger.info("Inicia consumer de resultado {}", consumerRecord);
 

@@ -33,7 +33,7 @@ public class PautaServiceTest {
     private PautaRepository pautaRepository;
 
     @Test
-    void testaCriarAssociado(){
+    public void testaCriarAssociado(){
         when(pautaRepository.save(any(Pauta.class))).thenReturn(new Pauta());
 
         Pauta associado = pautaService.salvarPauta(new Pauta());
@@ -43,7 +43,7 @@ public class PautaServiceTest {
     }
 
     @Test
-    void testaBuscaPautaPorIdComIdQueNaoExiste() {
+    public void testaBuscaPautaPorIdComIdQueNaoExiste() {
         when(pautaRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         NotFoundException exception = assertThrows(NotFoundException.class, () -> {
@@ -54,7 +54,7 @@ public class PautaServiceTest {
     }
 
     @Test
-    void testaBuscaPautaPorIdComSucesso() {
+    public void testaBuscaPautaPorIdComSucesso() {
         when(pautaRepository.findById(1l)).thenReturn(Optional.of(new Pauta()));
 
         Pauta pauta = pautaService.buscarPautaPorId(1l);
@@ -63,7 +63,7 @@ public class PautaServiceTest {
     }
 
     @Test
-    void testaExistePautaComVotoDoAssociado() {
+    public void testaExistePautaComVotoDoAssociado() {
         when(pautaRepository.existsByIdAndSessaoVotosAssociadoId(anyLong(),anyLong())).thenReturn(Boolean.TRUE);
 
         Boolean aBoolean = pautaService.existePautaComVotoDoAssociado(1l, 1l);
@@ -73,7 +73,7 @@ public class PautaServiceTest {
     }
 
     @Test
-    void testaBuscarTodasAsPautasFinalizadasSemResultado() {
+    public void testaBuscarTodasAsPautasFinalizadasSemResultado() {
         when(pautaRepository.findByResultadoIsNullAndSessaoDataHoraFinalizacaoBefore(any(LocalDateTime.class))).thenReturn(Arrays.asList(new Pauta()));
 
         List<Pauta> pautas = pautaService.buscarTodasAsPautasFinalizadasSemResultado();
@@ -85,7 +85,7 @@ public class PautaServiceTest {
     }
 
     @Test
-    void testaApurarResultadoComEmpate(){
+    public void testaApurarResultadoComEmpate(){
         Pauta pauta = getPauta();
         pauta.getSessao().getVotos().add(getVoto(VotoEnum.SIM));
         pauta.getSessao().getVotos().add(getVoto(VotoEnum.NAO));
@@ -98,7 +98,7 @@ public class PautaServiceTest {
     }
 
     @Test
-    void testaApurarResultadoComAprovado(){
+    public void testaApurarResultadoComAprovado(){
         Pauta pauta = getPauta();
         pauta.getSessao().getVotos().add(getVoto(VotoEnum.SIM));
 
@@ -110,7 +110,7 @@ public class PautaServiceTest {
     }
 
     @Test
-    void testaApurarResultadoComReprovado(){
+    public void testaApurarResultadoComReprovado(){
         Pauta pauta = getPauta();
         pauta.getSessao().getVotos().add(getVoto(VotoEnum.NAO));
 
@@ -122,7 +122,7 @@ public class PautaServiceTest {
     }
 
     @Test
-    void testaApurarResultadoSemVotos(){
+    public void testaApurarResultadoSemVotos(){
         Pauta pauta = getPauta();
 
         ResultadoDto resultadoDto = pautaService.apurarResultado(pauta);
