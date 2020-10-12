@@ -20,15 +20,16 @@ Para subir todo o sistema usando o docker basta seguir os passos abaixo, ao exec
  docker-compose up -d
 ```
 
-Baixe todas as dependencias necessarias com o maven
+Baixe todas as dependencias necessarias com o maven e execute o projeto
 
 ```
  cd /caminho/do/projeto/cooperativismo-api/
  mvn install -DskipTests
+ mvn clean spring-boot:run
 ```
+Pronto, o aplicativo está pronto para uso em http://localhost:8080/api 🎉 🎊 🎈
 
-Importe e excute o projeto em uma IDE Java, Eclipse de preferencia.
-
+Para entrar na documentação gerada automaticamente do swagger basta acessar http://localhost:8080/api/swagger-ui.html
 
 ## Sobre as tecnologias
 
