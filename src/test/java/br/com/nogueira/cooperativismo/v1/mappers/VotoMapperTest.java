@@ -1,5 +1,6 @@
 package br.com.nogueira.cooperativismo.v1.mappers;
 
+import br.com.nogueira.cooperativismo.dtos.VotoDto;
 import br.com.nogueira.cooperativismo.entities.Associado;
 import br.com.nogueira.cooperativismo.entities.Voto;
 import br.com.nogueira.cooperativismo.enums.VotoEnum;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class VotoMapperTest {
 
     @Test
-    public void testaMap(){
+    public void testaMapParaEntidade(){
         VotoForm votoForm = getVotoForm();
         Associado associado = new Associado();
 
@@ -22,6 +23,18 @@ public class VotoMapperTest {
         assertEquals(votoForm.getDataHoraVotacao(), voto.getDataHoraVotacao());
         assertEquals(votoForm.getVoto(), voto.getVoto());
         assertEquals(associado, voto.getAssociado());
+    }
+
+    @Test
+    public void testaMapParaDto(){
+        VotoForm votoForm = getVotoForm();
+        Long idPauta = 1l;
+
+        VotoDto voto = VotoMapper.INSTANCE.map(idPauta, votoForm);
+
+        assertEquals(votoForm.getDataHoraVotacao(), voto.getDataHoraVotacao());
+        assertEquals(votoForm.getVoto(), voto.getVoto());
+        assertEquals(idPauta, voto.getIdPauta());
     }
 
     private VotoForm getVotoForm(){
