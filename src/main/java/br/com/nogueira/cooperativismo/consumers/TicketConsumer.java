@@ -1,5 +1,6 @@
 package br.com.nogueira.cooperativismo.consumers;
 
+import br.com.nogueira.cooperativismo.business.TicketBusiness;
 import br.com.nogueira.cooperativismo.business.VotoBusiness;
 import br.com.nogueira.cooperativismo.dtos.TicketDto;
 import br.com.nogueira.cooperativismo.entities.Ticket;
@@ -16,28 +17,17 @@ import org.springframework.stereotype.Component;
 public class TicketConsumer {
 
     @Autowired
-    private VotoBusiness votoBusiness;
-
-    @Autowired
-    private TicketService ticketService;
+    private TicketBusiness ticketBusiness;
 
     private static Logger Logger = LoggerFactory.getLogger(TicketConsumer.class);
 
     @KafkaListener(topics = "${topic.ticket.name}")
     public void consumer(ConsumerRecord<String, TicketDto> consumerRecord){
+        Logger.info("Inicia consumer de ticket {}", consumerRecord);
+
         TicketDto ticketDto = consumerRecord.value();
 
-        Ticket ticket = ticketService.buscarTicketPorId(ticketDto.getId());
-
-        try{
-            votoBusiness.criarVoto(ticketDto);
-            ticket.setStatus(StatusTicketEnum.FINALIZADO_COM_SUCESSO);
-        }catch (Exception e){
-            ticket.setMotivoErro(e.getMessage());
-            ticket.setStatus(StatusTicketEnum.FINALIZADO_COM_ERRO);
-        }
-
-        ticketService.salvarTicket(ticket);
+        Ticket ticket = ticketBusiness.computaTicket(ticketDto);
 
         Logger.info("Consumer finalizado com sucesso {}",ticket);
     }
